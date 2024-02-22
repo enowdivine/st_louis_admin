@@ -75,7 +75,7 @@ function Programs() {
               <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Programs</th>
+                <th>Course</th>
                 <th>Action</th>
               </tr>
             </thead>

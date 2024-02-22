@@ -12,6 +12,7 @@ import MultiSelect from "../../components/Input/MultiSelect";
 const INITIAL_PROGRAM_OBJ = {
   name: "",
   description: "",
+  course: [],
 };
 
 function AddProgramModalBody({ closeModal }) {
@@ -25,11 +26,14 @@ function AddProgramModalBody({ closeModal }) {
       return setErrorMessage("Program name is required!");
     else if (programObj.description.trim() === "")
       return setErrorMessage("description is required!");
+    else if (programObj.course.trim() === "")
+      return setErrorMessage("course is required!");
     else {
       let newprogramObj = {
         id: 7,
         name: programObj.name,
         description: programObj.description,
+        course: programObj.course,
       };
       dispatch(addNewProgram({ programObj }));
       dispatch(

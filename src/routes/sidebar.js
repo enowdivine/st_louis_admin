@@ -29,11 +29,11 @@ const routes = [
     icon: <Squares2X2Icon className={iconClasses}/>, 
     name: 'Dashboard',
   },
-  {
-    path: '/app/testimony', // url
-    icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
-    name: 'Testimony', // name that appear in Sidebar
-  },
+  // {
+  //   path: '/app/testimony', // url
+  //   icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
+  //   name: 'Testimony', // name that appear in Sidebar
+  // },
   // {
   //   path: '/app/rooms', // url
   //   icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
@@ -54,36 +54,36 @@ const routes = [
     icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
     name: 'Events', // name that appear in Sidebar
   },
-  {
-    path: '/app/partners', // url
-    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'Partners', // name that appear in Sidebar
-  },
+  // {
+  //   path: '/app/partners', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+  //   name: 'Partners', // name that appear in Sidebar
+  // },
   {
     path: '/app/news', // url
     icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
     name: 'News', // name that appear in Sidebar
   },
-  // {
-  //   path: '/app/team', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-  //   name: 'Team', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/courses', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-  //   name: 'Courses', // name that appear in Sidebar
-  // },
   {
-    path: '/app/hostcenters', // url
+    path: '/app/team', // url
     icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'HostCenters', // name that appear in Sidebar
+    name: 'Team', // name that appear in Sidebar
+  },
+  {
+    path: '/app/courses', // url
+    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+    name: 'Courses', // name that appear in Sidebar
   },
   // {
-  //   path: '/app/programs', // url
+  //   path: '/app/hostcenters', // url
   //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-  //   name: 'Programs', // name that appear in Sidebar
+  //   name: 'HostCenters', // name that appear in Sidebar
   // },
+  {
+    path: '/app/programs', // url
+    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+    name: 'Programs', // name that appear in Sidebar
+  },
   // {
   //   path: '/app/charts', // url
   //   icon: <ChartBarIcon className={iconClasses}/>, // icon component

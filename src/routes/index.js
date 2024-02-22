@@ -8,15 +8,15 @@ const Page404 = lazy(() => import('../pages/protected/404'))
 const Blank = lazy(() => import('../pages/protected/Blank'))
 const Charts = lazy(() => import('../pages/protected/Charts'))
 // const Rooms = lazy(() => import('../pages/protected/Rooms'))
-const Testimony = lazy(() => import('../pages/protected/Testimony'))
+// const Testimony = lazy(() => import('../pages/protected/Testimony'))
 // const Gallery = lazy(() => import('../pages/protected/Gallery'))
 const Events = lazy(() => import('../pages/protected/Events'))
-const Partners = lazy(() => import('../pages/protected/Partners'))
+// const Partners = lazy(() => import('../pages/protected/Partners'))
 const News = lazy(() => import('../pages/protected/News'))
-// const Team = lazy(() => import('../pages/protected/Team'))
-// const Programs = lazy(() => import('../pages/protected/Programs'))
-// const Course = lazy(() => import('../pages/protected/Course'))
-const HostCenter = lazy(() => import('../pages/protected/HostCenters'))
+const Team = lazy(() => import('../pages/protected/Team'))
+const Programs = lazy(() => import('../pages/protected/Programs'))
+const Course = lazy(() => import('../pages/protected/Course'))
+// const HostCenter = lazy(() => import('../pages/protected/HostCenters'))
 // const Integration = lazy(() => import('../pages/protected/Integration'))
 // const Calendar = lazy(() => import('../pages/protected/Calendar'))
 // const Teams = lazy(() => import('../pages/protected/Team'))
@@ -42,10 +42,10 @@ const routes = [
   //   path: '/rooms',
   //   component: Rooms,
   // },
-  {
-    path: '/testimony',
-    component: Testimony,
-  },
+  // {
+  //   path: '/testimony',
+  //   component: Testimony,
+  // },
   // {
   //   path: '/gallery',
   //   component: Gallery,
@@ -54,30 +54,30 @@ const routes = [
     path: '/events',
     component: Events,
   },
-  {
-    path: '/partners',
-    component: Partners,
-  },
+  // {
+  //   path: '/partners',
+  //   component: Partners,
+  // },
   {
     path: '/news',
     component: News,
   },
-  // {
-  //   path: '/team',
-  //   component: Team,
-  // },
   {
-    path: '/hostcenters',
-    component: HostCenter,
+    path: '/team',
+    component: Team,
   },
   // {
-  //   path: '/programs',
-  //   component: Programs,
+  //   path: '/hostcenters',
+  //   component: HostCenter,
   // },
-  // {
-  //   path: '/Courses',
-  //   component: Course,
-  // },
+  {
+    path: '/programs',
+    component: Programs,
+  },
+  {
+    path: '/Courses',
+    component: Course,
+  },
   // {
   //   path: '/settings-team',
   //   component: Team,
