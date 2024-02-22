@@ -30,31 +30,65 @@ const routes = [
     name: 'Dashboard',
   },
   {
-    path: '/app/leads', // url
+    path: '/app/testimony', // url
     icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
-    name: 'Leads', // name that appear in Sidebar
+    name: 'Testimony', // name that appear in Sidebar
   },
   {
-    path: '/app/transactions', // url
+    path: '/app/rooms', // url
+    icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
+    name: 'Rooms', // name that appear in Sidebar
+  },
+  {
+    path: '/app/gallery', // url
+    icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
+    name: 'Gallery', // name that appear in Sidebar
+  },
+  {
+    path: '/app/bookings', // url
     icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'Transactions', // name that appear in Sidebar
+    name: 'Bookings', // name that appear in Sidebar
   },
   {
-    path: '/app/charts', // url
-    icon: <ChartBarIcon className={iconClasses}/>, // icon component
-    name: 'Analytics', // name that appear in Sidebar
+    path: '/app/events', // url
+    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+    name: 'Events', // name that appear in Sidebar
   },
   {
-    path: '/app/integration', // url
-    icon: <BoltIcon className={iconClasses}/>, // icon component
-    name: 'Integration', // name that appear in Sidebar
+    path: '/app/partners', // url
+    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+    name: 'Partners', // name that appear in Sidebar
   },
-  {
-    path: '/app/calendar', // url
-    icon: <CalendarDaysIcon className={iconClasses}/>, // icon component
-    name: 'Calendar', // name that appear in Sidebar
-  },
-
+  // {
+  //   path: '/app/news', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+  //   name: 'News', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/team', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+  //   name: 'Team', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/courses', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+  //   name: 'Courses', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/hostcenters', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+  //   name: 'HostCenters', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/programs', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
+  //   name: 'Programs', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/charts', // url
+  //   icon: <ChartBarIcon className={iconClasses}/>, // icon component
+  //   name: 'Analytics', // name that appear in Sidebar
+  // },
   {
     path: '', //no url needed as this has submenu
     icon: <DocumentDuplicateIcon className={`${iconClasses} inline` }/>, // icon component
@@ -97,40 +131,40 @@ const routes = [
         icon: <UserIcon className={submenuIconClasses}/>, // icon component
         name: 'Profile', // name that appear in Sidebar
       },
-      {
-        path: '/app/settings-billing',
-        icon: <WalletIcon className={submenuIconClasses}/>,
-        name: 'Billing',
-      },
-      {
-        path: '/app/settings-team', // url
-        icon: <UsersIcon className={submenuIconClasses}/>, // icon component
-        name: 'Team Members', // name that appear in Sidebar
-      },
+      // {
+      //   path: '/app/settings-billing',
+      //   icon: <WalletIcon className={submenuIconClasses}/>,
+      //   name: 'Billing',
+      // },
+      // {
+      //   path: '/app/settings-team', // url
+      //   icon: <UsersIcon className={submenuIconClasses}/>, // icon component
+      //   name: 'Team Members', // name that appear in Sidebar
+      // },
     ]
   },
-  {
-    path: '', //no url needed as this has submenu
-    icon: <DocumentTextIcon className={`${iconClasses} inline` }/>, // icon component
-    name: 'Documentation', // name that appear in Sidebar
-    submenu : [
-      {
-        path: '/app/getting-started', // url
-        icon: <DocumentTextIcon className={submenuIconClasses}/>, // icon component
-        name: 'Getting Started', // name that appear in Sidebar
-      },
-      {
-        path: '/app/features',
-        icon: <TableCellsIcon className={submenuIconClasses}/>, 
-        name: 'Features',
-      },
-      {
-        path: '/app/components',
-        icon: <CodeBracketSquareIcon className={submenuIconClasses}/>, 
-        name: 'Components',
-      }
-    ]
-  },
+  // {
+  //   path: '', //no url needed as this has submenu
+  //   icon: <DocumentTextIcon className={`${iconClasses} inline` }/>, // icon component
+  //   name: 'Documentation', // name that appear in Sidebar
+  //   submenu : [
+  //     {
+  //       path: '/app/getting-started', // url
+  //       icon: <DocumentTextIcon className={submenuIconClasses}/>, // icon component
+  //       name: 'Getting Started', // name that appear in Sidebar
+  //     },
+  //     {
+  //       path: '/app/features',
+  //       icon: <TableCellsIcon className={submenuIconClasses}/>, 
+  //       name: 'Features',
+  //     },
+  //     {
+  //       path: '/app/components',
+  //       icon: <CodeBracketSquareIcon className={submenuIconClasses}/>, 
+  //       name: 'Components',
+  //     }
+  //   ]
+  // },
   
 ]
 
