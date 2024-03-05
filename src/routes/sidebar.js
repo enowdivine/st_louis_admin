@@ -26,9 +26,34 @@ const routes = [
 
   {
     path: '/app/dashboard',
-    icon: <Squares2X2Icon className={iconClasses}/>, 
+    icon: <Squares2X2Icon className={iconClasses} />,
     name: 'Dashboard',
   },
+  {
+    path: '/app/events', // url
+    icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+    name: 'Events', // name that appear in Sidebar
+  },
+  {
+    path: '/app/team', // url
+    icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+    name: 'Team', // name that appear in Sidebar
+  },
+  // {
+  //   path: '/app/news', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+  //   name: 'News', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/courses', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+  //   name: 'Courses', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/programs', // url
+  //   icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+  //   name: 'Programs', // name that appear in Sidebar
+  // },
   // {
   //   path: '/app/testimony', // url
   //   icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
@@ -49,100 +74,78 @@ const routes = [
   //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
   //   name: 'Bookings', // name that appear in Sidebar
   // },
-  {
-    path: '/app/events', // url
-    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'Events', // name that appear in Sidebar
-  },
+
   // {
   //   path: '/app/partners', // url
   //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
   //   name: 'Partners', // name that appear in Sidebar
   // },
-  {
-    path: '/app/news', // url
-    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'News', // name that appear in Sidebar
-  },
-  {
-    path: '/app/team', // url
-    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'Team', // name that appear in Sidebar
-  },
-  {
-    path: '/app/courses', // url
-    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'Courses', // name that appear in Sidebar
-  },
+
   // {
   //   path: '/app/hostcenters', // url
   //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
   //   name: 'HostCenters', // name that appear in Sidebar
   // },
-  {
-    path: '/app/programs', // url
-    icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-    name: 'Programs', // name that appear in Sidebar
-  },
+
   // {
   //   path: '/app/charts', // url
   //   icon: <ChartBarIcon className={iconClasses}/>, // icon component
   //   name: 'Analytics', // name that appear in Sidebar
   // },
-  {
-    path: '', //no url needed as this has submenu
-    icon: <DocumentDuplicateIcon className={`${iconClasses} inline` }/>, // icon component
-    name: 'Pages', // name that appear in Sidebar
-    submenu : [
-      {
-        path: '/login',
-        icon: <ArrowRightOnRectangleIcon className={submenuIconClasses}/>,
-        name: 'Login',
-      },
-      {
-        path: '/register', //url
-        icon: <UserIcon className={submenuIconClasses}/>, // icon component
-        name: 'Register', // name that appear in Sidebar
-      },
-      {
-        path: '/forgot-password',
-        icon: <KeyIcon className={submenuIconClasses}/>,
-        name: 'Forgot Password',
-      },
-      {
-        path: '/app/blank',
-        icon: <DocumentIcon className={submenuIconClasses}/>,
-        name: 'Blank Page',
-      },
-      {
-        path: '/app/404',
-        icon: <ExclamationTriangleIcon className={submenuIconClasses}/>,
-        name: '404',
-      },
-    ]
-  },
-  {
-    path: '', //no url needed as this has submenu
-    icon: <Cog6ToothIcon className={`${iconClasses} inline` }/>, // icon component
-    name: 'Settings', // name that appear in Sidebar
-    submenu : [
-      {
-        path: '/app/settings-profile', //url
-        icon: <UserIcon className={submenuIconClasses}/>, // icon component
-        name: 'Profile', // name that appear in Sidebar
-      },
-      // {
-      //   path: '/app/settings-billing',
-      //   icon: <WalletIcon className={submenuIconClasses}/>,
-      //   name: 'Billing',
-      // },
-      // {
-      //   path: '/app/settings-team', // url
-      //   icon: <UsersIcon className={submenuIconClasses}/>, // icon component
-      //   name: 'Team Members', // name that appear in Sidebar
-      // },
-    ]
-  },
+  // {
+  //   path: '', //no url needed as this has submenu
+  //   icon: <DocumentDuplicateIcon className={`${iconClasses} inline` }/>, // icon component
+  //   name: 'Pages', // name that appear in Sidebar
+  //   submenu : [
+  //     {
+  //       path: '/login',
+  //       icon: <ArrowRightOnRectangleIcon className={submenuIconClasses}/>,
+  //       name: 'Login',
+  //     },
+  //     {
+  //       path: '/register', //url
+  //       icon: <UserIcon className={submenuIconClasses}/>, // icon component
+  //       name: 'Register', // name that appear in Sidebar
+  //     },
+  //     {
+  //       path: '/forgot-password',
+  //       icon: <KeyIcon className={submenuIconClasses}/>,
+  //       name: 'Forgot Password',
+  //     },
+  //     {
+  //       path: '/app/blank',
+  //       icon: <DocumentIcon className={submenuIconClasses}/>,
+  //       name: 'Blank Page',
+  //     },
+  //     {
+  //       path: '/app/404',
+  //       icon: <ExclamationTriangleIcon className={submenuIconClasses}/>,
+  //       name: '404',
+  //     },
+  //   ]
+  // },
+  // {
+  //   path: '', //no url needed as this has submenu
+  //   icon: <Cog6ToothIcon className={`${iconClasses} inline` }/>, // icon component
+  //   name: 'Settings', // name that appear in Sidebar
+  //   submenu : [
+  //     {
+  //       path: '/app/settings-profile', //url
+  //       icon: <UserIcon className={submenuIconClasses}/>, // icon component
+  //       name: 'Profile', // name that appear in Sidebar
+  //     },
+  //     // {
+  //     //   path: '/app/settings-billing',
+  //     //   icon: <WalletIcon className={submenuIconClasses}/>,
+  //     //   name: 'Billing',
+  //     // },
+  //     // {
+  //     //   path: '/app/settings-team', // url
+  //     //   icon: <UsersIcon className={submenuIconClasses}/>, // icon component
+  //     //   name: 'Team Members', // name that appear in Sidebar
+  //     // },
+  //   ]
+  // },
   // {
   //   path: '', //no url needed as this has submenu
   //   icon: <DocumentTextIcon className={`${iconClasses} inline` }/>, // icon component
@@ -165,7 +168,7 @@ const routes = [
   //     }
   //   ]
   // },
-  
+
 ]
 
 export default routes

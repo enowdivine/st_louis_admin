@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import SelectBox from "../../components/Input/SelectBox";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
-import { addNewEvents, deleteEvents } from "./eventSlice";
-import ImageUploader from "../../components/Input/ImageUploader";
+import { addEvent } from "../../app/reducers/app";
 
 const INITIAL_EVENT_OBJ = {
   name: "",
@@ -15,6 +13,7 @@ const INITIAL_EVENT_OBJ = {
   image: "",
   description: "",
   location: "",
+  link: ""
 };
 
 function AddEventModalBody({ closeModal }) {
@@ -22,10 +21,12 @@ function AddEventModalBody({ closeModal }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [eventObj, seteventObj] = useState(INITIAL_EVENT_OBJ);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  // const [previews, setPreviews] = useState([])
 
-  const saveNewEvent = () => {
+  const saveNewEvent = async () => {
     if (eventObj.name.trim() === "")
-      return setErrorMessage("Event name is required!");
+      return setErrorMessage("Event title is required!");
     else if (eventObj.category.trim() === "")
       return setErrorMessage("Event category is required!");
     else if (eventObj.date.trim() === "")
@@ -34,42 +35,45 @@ function AddEventModalBody({ closeModal }) {
       return setErrorMessage("Event description is required!");
     else if (eventObj.location.trim() === "")
       return setErrorMessage("Event location is required!");
+    else if (eventObj.link.trim() === "")
+      return setErrorMessage("Registration link is required!");
     else {
-      let neweventObj = {
-        id: 7,
-        name: eventObj.name,
-        category: eventObj.category,
-        date: eventObj.date,
-        image: eventObj.image,
-        description: eventObj.description,
-        location: eventObj.location,
-      };
-      dispatch(addNewEvents({ neweventObj }));
-      dispatch(
-        showNotification({ message: "Event succesfully Added!", status: 1 })
-      );
-      closeModal();
+      setLoading(true)
+      const formData = new FormData();
+      formData.append('image', selectedFiles[0]);
+      formData.append('title', eventObj.name);
+      formData.append('category', eventObj.category);
+      formData.append('details', eventObj.description);
+      formData.append('date', eventObj.date);
+      formData.append('location', eventObj.location);
+      formData.append('link', eventObj.link);
+      await dispatch(addEvent(formData)).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          setErrorMessage(res.payload)
+          setLoading(false)
+          return
+        }
+        dispatch(showNotification({ message: "New event Added!", status: 1 }));
+        setLoading(false)
+        closeModal();
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const newSelectedFiles = [...selectedFiles, ...files];
+      setSelectedFiles(newSelectedFiles)
     }
   };
 
   const updateFormValue = ({ updateType, value }) => {
     setErrorMessage("");
     seteventObj({ ...eventObj, [updateType]: value });
-  };
-
-  const options = [
-    { value: "ConferenceHall", name: "Conference Hall" },
-    { value: "OutDoorDinning", name: "OutDoor Dinning" },
-    { value: "GuestApartment", name: "Guest Apartment" },
-    { value: "OfficeRental", name: "Office Rental" },
-    { value: "BeautySalon", name: "Beauty Salon" },
-    { value: "BillBoardAdverting", name: "BillBoard Adverting" },
-    // Add more options as needed
-  ];
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const handleImageUpload = (value) => {
-    console.log(value);
-    // handle the uploaded image here
   };
 
   return (
@@ -90,31 +94,36 @@ function AddEventModalBody({ closeModal }) {
         labelTitle="Location"
         updateFormValue={updateFormValue}
       />
-      <SelectBox
-        labelTitle="Select Event Category"
-        defaultValue={selectedOptions}
-        options={options}
-        containerStyle="my-4 w-full"
-        placeholder="Select Category"
-        labelStyle="text-lg"
-        updateType="options"
+      <InputText
+        type="text"
+        defaultValue={eventObj.category}
+        updateType="category"
+        containerStyle="mt-4"
+        labelTitle="Category"
+        updateFormValue={updateFormValue}
+      />
+      <InputText
+        type="text"
+        defaultValue={eventObj.category}
+        updateType="link"
+        containerStyle="mt-4"
+        labelTitle="Registration Link"
         updateFormValue={updateFormValue}
       />
       <InputText
         type="date"
         defaultValue={eventObj.date}
-        updateType="name"
+        updateType="date"
         containerStyle="mt-4"
-        labelTitle="Name"
+        labelTitle="Event Date"
         updateFormValue={updateFormValue}
       />
-      <ImageUploader
-        labelTitle="Upload an image"
-        containerStyle="my-4"
-        defaultValue={eventObj.image}
-        updateFormValue={handleImageUpload}
-        updateType="image"
-      />
+      <p style={{ marginTop: 20 }}>Image</p>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
       <TextAreaInput
         labelTitle="Enter your event discription"
         labelStyle="text-lg"
@@ -123,7 +132,7 @@ function AddEventModalBody({ closeModal }) {
         defaultValue={eventObj.description}
         placeholder="Type your description here"
         updateFormValue={updateFormValue}
-        updateType="message"
+        updateType="description"
       />
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>

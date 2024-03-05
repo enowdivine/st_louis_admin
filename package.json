@@ -1,7 +1,7 @@
 {
-  "name": "admin-dashboard-template-dashwind",
+  "name": "st_louis",
   "version": "1.0.0",
-  "description": "Admin Dashboard template built with create-react-app, tailwind css and daisy UI. Template uses rich tailwind css utility classes and have components of daisy UI, also have redux toolkit implemented for store management.",
+  "description": "St Louis Admin Console",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
+    "react-jwt": "^1.2.0",
     "react-notifications": "^1.7.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
@@ -30,26 +31,8 @@
     "theme-change": "^2.2.0",
     "web-vitals": "^2.1.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/srobbin01/tailwind-dashboard-template-dashwind"
-  },
-  "keywords": [
-    "reactjs",
-    "tailwind-css",
-    "starter-kit",
-    "saas-starter-kit",
-    "reduxt-toolkit-dashboard-template",
-    "daisyui-template",
-    "dashboard-template",
-    "react-router",
-    "react-charts"
-  ],
-  "author": "srobbin01",
+  "author": "divine",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/srobbin01/tailwind-dashboard-template-dashwind/issues"
-  },
   "homepage": "",
   "eslintConfig": {
     "extends": [
