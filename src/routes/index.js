@@ -10,13 +10,11 @@ const Charts = lazy(() => import('../pages/protected/Charts'))
 
 const Events = lazy(() => import('../pages/protected/Events'))
 const Team = lazy(() => import('../pages/protected/Team'))
-// const HostCenter = lazy(() => import('../pages/protected/HostCenters'))
-// const Integration = lazy(() => import('../pages/protected/Integration'))
-// const Calendar = lazy(() => import('../pages/protected/Calendar'))
-// const Teams = lazy(() => import('../pages/protected/Team'))
-// const Bookings = lazy(() => import('../pages/protected/Bookings'))
-// const Bills = lazy(() => import('../pages/protected/Bills'))
-const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
+const Programmes = lazy(() => import('../pages/protected/Programs'))
+const Courses = lazy(() => import('../pages/protected/Courses'))
+const Campuses = lazy(() => import('../pages/protected/Campuses'))
+const Categories = lazy(() => import('../pages/protected/Categories'))
+
 // const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 // const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 // const DocComponents = lazy(() => import('../pages/DocComponents'))
@@ -40,22 +38,26 @@ const routes = [
     path: '/team',
     component: Team,
   },
-  // {
-  //   path: '/settings-team',
-  //   component: Team,
-  // },
+  {
+    path: '/programmes',
+    component: Programmes,
+  },
+  {
+    path: '/courses',
+    component: Courses,
+  },
+  {
+    path: '/campuses',
+    component: Campuses,
+  },
+  {
+    path: '/categories',
+    component: Categories,
+  },
   // {
   //   path: '/calendar',
   //   component: Calendar,
   // },
-  // {
-  //   path: '/bookings',
-  //   component: Bookings,
-  // },
-  {
-    path: '/settings-profile',
-    component: ProfileSettings,
-  },
   // {
   //   path: '/settings-billing',
   //   component: Bills,
@@ -76,18 +78,18 @@ const routes = [
   //   path: '/integration',
   //   component: Integration,
   // },
-  {
-    path: '/charts',
-    component: Charts,
-  },
-  {
-    path: '/404',
-    component: Page404,
-  },
-  {
-    path: '/blank',
-    component: Blank,
-  },
+  // {
+  //   path: '/charts',
+  //   component: Charts,
+  // },
+  // {
+  //   path: '/404',
+  //   component: Page404,
+  // },
+  // {
+  //   path: '/blank',
+  //   component: Blank,
+  // },
 ]
 
 export default routes

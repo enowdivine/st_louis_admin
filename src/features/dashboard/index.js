@@ -3,10 +3,12 @@ import DashboardStats from './components/DashboardStats'
 // import PageStats from './components/PageStats'
 
 import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
-import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
-import CircleStackIcon from '@heroicons/react/24/outline/CircleStackIcon'
-import CreditCardIcon from '@heroicons/react/24/outline/CreditCardIcon'
 import ClipboardIcon from '@heroicons/react/24/outline/ClipboardIcon'
+import HomeModernIcon from '@heroicons/react/24/outline/HomeModernIcon'
+import BookmarkSquareIcon from '@heroicons/react/24/outline/BookmarkSquareIcon'
+import QueueListIcon from '@heroicons/react/24/outline/QueueListIcon'
+import BookOpenIcon from '@heroicons/react/24/outline/BookOpenIcon'
+import CalendarDaysIcon from '@heroicons/react/24/outline/CalendarDaysIcon'
 // import UserChannels from './components/UserChannels'
 // import LineChart from './components/LineChart'
 // import BarChart from './components/BarChart'
@@ -15,7 +17,10 @@ import { useDispatch } from 'react-redux'
 import { showNotification } from '../common/headerSlice'
 // import DoughnutChart from './components/DoughnutChart'
 import { useState, useEffect } from 'react'
-import { getEvents, getTeam } from '../../app/reducers/app'
+import {
+    getEvents, getTeam,
+    getCampuses, getProgrammes, getCategories, getCourses
+} from '../../app/reducers/app'
 
 function Dashboard() {
     const dispatch = useDispatch()
@@ -23,7 +28,10 @@ function Dashboard() {
     const [events, setEvents] = useState([])
     const [upcomingEvents, setUpcomingEvents] = useState([])
     const [members, setMembers] = useState([])
-
+    const [campuses, setCampuses] = useState([])
+    const [programmes, setProgrammes] = useState([])
+    const [categories, setCategories] = useState([])
+    const [courses, setCourses] = useState([])
 
     const handlerGetEvents = async () => {
         try {
@@ -65,9 +73,93 @@ function Dashboard() {
         }
     }
 
+    const handlerGetCampuses = async () => {
+        try {
+            setLoading(true)
+            await dispatch(getCampuses()).then((res) => {
+                if (res.meta.requestStatus === "rejected") {
+                    showNotification({ message: res.payload, status: 0 })
+                    setLoading(false)
+                    return
+                }
+                setCampuses(res.payload)
+                setLoading(false)
+            }).catch((err) => {
+                console.error(err)
+                setLoading(false)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const handlerGetProgrammes = async () => {
+        try {
+            setLoading(true)
+            await dispatch(getProgrammes()).then((res) => {
+                if (res.meta.requestStatus === "rejected") {
+                    showNotification({ message: res.payload, status: 0 })
+                    setLoading(false)
+                    return
+                }
+                setProgrammes(res.payload)
+                setLoading(false)
+            }).catch((err) => {
+                console.error(err)
+                setLoading(false)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const handlerGetCategories = async () => {
+        try {
+            setLoading(true)
+            await dispatch(getCategories()).then((res) => {
+                if (res.meta.requestStatus === "rejected") {
+                    showNotification({ message: res.payload, status: 0 })
+                    setLoading(false)
+                    return
+                }
+                setCategories(res.payload)
+                setLoading(false)
+            }).catch((err) => {
+                console.error(err)
+                setLoading(false)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const handlerGetCourses = async () => {
+        try {
+            setLoading(true)
+            await dispatch(getCourses()).then((res) => {
+                if (res.meta.requestStatus === "rejected") {
+                    showNotification({ message: res.payload, status: 0 })
+                    setLoading(false)
+                    return
+                }
+                setCourses(res.payload)
+                setLoading(false)
+            }).catch((err) => {
+                console.error(err)
+                setLoading(false)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     useEffect(() => {
         handlerGetEvents()
         handlerGetTeam()
+        handlerGetCampuses()
+        handlerGetProgrammes()
+        handlerGetCategories()
+        handlerGetCourses()
     }, [])
 
     const getUpcomingEvents = () => {
@@ -84,10 +176,15 @@ function Dashboard() {
     }, [events])
 
     const statsData = [
-        { title: "Events", value: `${events?.length}`, icon: <UserGroupIcon className='w-8 h-8' />, description: "" },
+        { title: "Events", value: `${events?.length}`, icon: <CalendarDaysIcon className='w-8 h-8' />, description: "" },
         { title: "Upcoming Events", value: `${upcomingEvents?.length}`, icon: <ClipboardIcon className='w-8 h-8' />, description: "" },
         { title: "Past Events", value: `${events?.length - upcomingEvents?.length}`, icon: <ClipboardIcon className='w-8 h-8' />, description: "" },
         { title: "Team", value: `${members?.length}`, icon: <UserGroupIcon className='w-8 h-8' />, description: "" },
+
+        { title: "Campuses", value: `${campuses?.length}`, icon: <HomeModernIcon className='w-8 h-8' />, description: "" },
+        { title: "Programmes", value: `${programmes?.length}`, icon: <BookmarkSquareIcon className='w-8 h-8' />, description: "" },
+        { title: "Course Categories", value: `${categories?.length}`, icon: <QueueListIcon className='w-8 h-8' />, description: "" },
+        { title: "Courses", value: `${courses?.length}`, icon: <BookOpenIcon className='w-8 h-8' />, description: "" },
     ]
 
 
@@ -111,7 +208,6 @@ function Dashboard() {
                     })
                 }
             </div>
-
 
 
             {/** ---------------------- Different charts ------------------------- */}

@@ -8,8 +8,17 @@ import UpdateEventModalBody from "../features/Events/UpdateEventModalBody";
 import AddTeamModalBody from "../features/Team/AddTeamModalBody";
 import UpdateTeamModalBody from "../features/Team/UpdateTeamModalBody";
 
+import AddProgramModalBody from "../features/Programs/AddModalBody";
+import UpdateProgramModalBody from "../features/Programs/UpdateModalBody";
+
 import UpdatePasswordModal from "../features/user/UpdatePasswordModal";
 import UpdateEmailModal from "../features/user/UpdateEmailModal";
+import UpdateCampusModalBody from "../features/Campuses/UpdateCampusModalBody";
+import AddCampusModalBody from "../features/Campuses/AddCampusModalBody";
+import AddCategoryModalBody from "../features/Categories/AddCategoryModalBody";
+import UpdateCategoryModalBody from "../features/Categories/UpdateCategoryModalBody";
+import AddCourseModalBody from "../features/Courses/AddCourseModalBody";
+import UpdateCourseModalBody from "../features/Courses/UpdateCourseModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -51,7 +60,8 @@ function ModalLayout() {
                   extraObject={extraObject}
                 />
               ),
-
+              // 
+              // 
               [MODAL_BODY_TYPES.ADD_NEW_TEAM]: (
                 <AddTeamModalBody
                   closeModal={close}
@@ -64,7 +74,65 @@ function ModalLayout() {
                   extraObject={extraObject}
                 />
               ),
+              // 
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_PROGRAM]: (
+                <AddProgramModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_PROGRAM]: (
+                <UpdateProgramModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
 
+              // 
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_CAMPUS]: (
+                <AddCampusModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_CAMPUS]: (
+                <UpdateCampusModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              // 
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_CATEGORY]: (
+                <AddCategoryModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_CATEGORY]: (
+                <UpdateCategoryModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              // 
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_COURSE]: (
+                <AddCourseModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_COURSE]: (
+                <UpdateCourseModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              // 
+              // 
               [MODAL_BODY_TYPES.UPDATE_USER_PASSWORD]: (
                 <UpdatePasswordModal
                   closeModal={close}
@@ -77,7 +145,8 @@ function ModalLayout() {
                   extraObject={extraObject}
                 />
               ),
-
+              // 
+              // 
               [MODAL_BODY_TYPES.CONFIRMATION]: (
                 <ConfirmationModalBody
                   extraObject={extraObject}

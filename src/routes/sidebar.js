@@ -7,7 +7,12 @@ import Squares2X2Icon from '@heroicons/react/24/outline/Squares2X2Icon'
 // import CodeBracketSquareIcon from '@heroicons/react/24/outline/CodeBracketSquareIcon'
 // import DocumentIcon from '@heroicons/react/24/outline/DocumentIcon'
 // import ExclamationTriangleIcon from '@heroicons/react/24/outline/ExclamationTriangleIcon'
-// import CalendarDaysIcon from '@heroicons/react/24/outline/CalendarDaysIcon'
+import CalendarDaysIcon from '@heroicons/react/24/outline/CalendarDaysIcon'
+import UserGroupIcon from '@heroicons/react/24/outline/UserGroupIcon'
+import HomeModernIcon from '@heroicons/react/24/outline/HomeModernIcon'
+import BookmarkSquareIcon from '@heroicons/react/24/outline/BookmarkSquareIcon'
+import QueueListIcon from '@heroicons/react/24/outline/QueueListIcon'
+import BookOpenIcon from '@heroicons/react/24/outline/BookOpenIcon'
 // import ArrowRightOnRectangleIcon from '@heroicons/react/24/outline/ArrowRightOnRectangleIcon'
 // import UserIcon from '@heroicons/react/24/outline/UserIcon'
 // import Cog6ToothIcon from '@heroicons/react/24/outline/Cog6ToothIcon'
@@ -31,67 +36,34 @@ const routes = [
   },
   {
     path: '/app/events', // url
-    icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+    icon: <CalendarDaysIcon className={iconClasses} />, // icon component
     name: 'Events', // name that appear in Sidebar
   },
   {
     path: '/app/team', // url
-    icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
+    icon: <UserGroupIcon className={iconClasses} />, // icon component
     name: 'Team', // name that appear in Sidebar
   },
-  // {
-  //   path: '/app/news', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
-  //   name: 'News', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/courses', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
-  //   name: 'Courses', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/programs', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
-  //   name: 'Programs', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/testimony', // url
-  //   icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
-  //   name: 'Testimony', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/rooms', // url
-  //   icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
-  //   name: 'Rooms', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/gallery', // url
-  //   icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
-  //   name: 'Gallery', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/bookings', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-  //   name: 'Bookings', // name that appear in Sidebar
-  // },
-
-  // {
-  //   path: '/app/partners', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-  //   name: 'Partners', // name that appear in Sidebar
-  // },
-
-  // {
-  //   path: '/app/hostcenters', // url
-  //   icon: <CurrencyDollarIcon className={iconClasses}/>, // icon component
-  //   name: 'HostCenters', // name that appear in Sidebar
-  // },
-
-  // {
-  //   path: '/app/charts', // url
-  //   icon: <ChartBarIcon className={iconClasses}/>, // icon component
-  //   name: 'Analytics', // name that appear in Sidebar
-  // },
+  {
+    path: '/app/campuses', // url
+    icon: <HomeModernIcon className={iconClasses} />, // icon component
+    name: 'Campuses', // name that appear in Sidebar
+  },
+  {
+    path: '/app/programmes', // url
+    icon: <BookmarkSquareIcon className={iconClasses} />, // icon component
+    name: 'Programmes', // name that appear in Sidebar
+  },
+  {
+    path: '/app/categories', // url
+    icon: <QueueListIcon className={iconClasses} />, // icon component
+    name: 'Categories', // name that appear in Sidebar
+  },
+  {
+    path: '/app/courses', // url
+    icon: <BookOpenIcon className={iconClasses} />, // icon component
+    name: 'Courses', // name that appear in Sidebar
+  },
   // {
   //   path: '', //no url needed as this has submenu
   //   icon: <DocumentDuplicateIcon className={`${iconClasses} inline` }/>, // icon component
