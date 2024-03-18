@@ -10,9 +10,9 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [title, setTitle] = useState("")
   const [programmes, setProgrammes] = useState([])
-  const [campuses, setCampuses] = useState([])
-  const [campus, setCampus] = useState("")
-  const [programme, setProgramme] = useState("")
+  const [programme, setProgramme] = useState([])
+  // const [campuses, setCampuses] = useState([])
+  // const [campus, setCampus] = useState("")
 
   const { item } = extraObject
 
@@ -36,33 +36,33 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
     }
   }
 
-  const handlerGetCampuses = async () => {
-    try {
-      setLoading(true)
-      await dispatch(getCampuses()).then((res) => {
-        if (res.meta.requestStatus === "rejected") {
-          showNotification({ message: res.payload, status: 0 })
-          setLoading(false)
-          return
-        }
-        setCampuses(res.payload)
-        setLoading(false)
-      }).catch((err) => {
-        console.error(err)
-        setLoading(false)
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const handlerGetCampuses = async () => {
+  //   try {
+  //     setLoading(true)
+  //     await dispatch(getCampuses()).then((res) => {
+  //       if (res.meta.requestStatus === "rejected") {
+  //         showNotification({ message: res.payload, status: 0 })
+  //         setLoading(false)
+  //         return
+  //       }
+  //       setCampuses(res.payload)
+  //       setLoading(false)
+  //     }).catch((err) => {
+  //       console.error(err)
+  //       setLoading(false)
+  //     })
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   const saveNewData = async () => {
-    if (title && programme && campus) {
+    if (title && programme) {
       const data = {
         id: item._id,
         title,
         programmeID: programme,
-        campusID: campus
+        // campusID: campus
       }
       await dispatch(updateCategories(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -86,14 +86,19 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
 
   useEffect(() => {
     setTitle(item.title)
-    setCampus(item.campusID)
+    // setCampus(item.campusID)
     setProgramme(item.programmeID)
   }, [item])
 
   useEffect(() => {
-    handlerGetCampuses()
+    // handlerGetCampuses()
     handlerGetProgramme()
   }, [])
+
+  const handleProgrammeChange = (event) => {
+    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+    setProgramme(selectedValues);
+  };
 
 
   return (
@@ -102,8 +107,9 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-bordered w-full mt-2" />
 
       <p style={{ marginTop: 20 }}>Programme</p>
-      <select className="input input-bordered w-full mt-2"
-        onChange={(e) => setProgramme(e.target.value)} value={programme}>
+      <select className="input input-bordered w-full mt-2" style={{ minHeight: 100 }}
+        multiple
+        onChange={handleProgrammeChange} value={programme}>
         <option>Select Programme</option>
         {programmes?.map((item, index) => {
           return (
@@ -112,7 +118,7 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
         })}
       </select>
 
-      <p style={{ marginTop: 20 }}>Campus</p>
+      {/* <p style={{ marginTop: 20 }}>Campus</p>
       <select className="input input-bordered w-full mt-2"
         onChange={(e) => setCampus(e.target.value)} value={campus}>
         <option>Select Campus</option>
@@ -121,7 +127,7 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
             <option key={index} value={item?._id}>{item?.title}</option>
           )
         })}
-      </select>
+      </select> */}
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

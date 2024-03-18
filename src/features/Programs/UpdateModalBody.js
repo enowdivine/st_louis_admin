@@ -17,30 +17,30 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [image, setImage] = useState([])
   const [previews, setPreviews] = useState([])
-  const [campuses, setCampuses] = useState([])
-  const [campus, setCampus] = useState("")
+  // const [campuses, setCampuses] = useState([])
+  // const [campus, setCampus] = useState("")
 
   const { item } = extraObject
 
-  const handlerGetCampuses = async () => {
-    try {
-      setLoading(true)
-      await dispatch(getCampuses()).then((res) => {
-        if (res.meta.requestStatus === "rejected") {
-          showNotification({ message: res.payload, status: 0 })
-          setLoading(false)
-          return
-        }
-        setCampuses(res.payload)
-        setLoading(false)
-      }).catch((err) => {
-        console.error(err)
-        setLoading(false)
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const handlerGetCampuses = async () => {
+  //   try {
+  //     setLoading(true)
+  //     await dispatch(getCampuses()).then((res) => {
+  //       if (res.meta.requestStatus === "rejected") {
+  //         showNotification({ message: res.payload, status: 0 })
+  //         setLoading(false)
+  //         return
+  //       }
+  //       setCampuses(res.payload)
+  //       setLoading(false)
+  //     }).catch((err) => {
+  //       console.error(err)
+  //       setLoading(false)
+  //     })
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   const saveNewData = async () => {
     if (title && summary) {
@@ -49,7 +49,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       formData.append('title', title);
       formData.append('summary', summary);
       formData.append('otherDetails', details);
-      formData.append('campusID', campus);
+      // formData.append('campusID', campus);
       const data = { id: item._id, formData }
       await dispatch(updateProgramme(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -103,17 +103,22 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
     setPreviews(newImagePreviewUrls);
   };
 
-  useEffect(() => {
-    handlerGetCampuses()
-  }, [])
+  // useEffect(() => {
+  //   handlerGetCampuses()
+  // }, [])
 
   useEffect(() => {
     setTitle(item.title)
     setSummary(item.summary)
     setDetails(item.otherDetails)
     setImage(item.image)
-    setCampus(item.campusID)
+    // setCampus(item.campusID)
   }, [item])
+
+  // const handleCampusChange = (event) => {
+  //   const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+  //   setCampus(selectedValues);
+  // };
 
 
   return (
@@ -121,16 +126,17 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       <p style={{ marginTop: 20 }}>Name</p>
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-bordered w-full mt-2" />
 
-      <p style={{ marginTop: 20 }}>Campus</p>
+      {/* <p style={{ marginTop: 20 }}>Campus</p>
       <select className="input input-bordered w-full mt-2"
-        onChange={(e) => setCampus(e.target.value)} value={campus}>
+        onChange={handleCampusChange}
+        value={campus}>
         <option>Select Campus</option>
         {campuses?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>
           )
         })}
-      </select>
+      </select> */}
 
       <p style={{ marginTop: 20 }}>Summary</p>
       <textarea className="textarea textarea-bordered w-full mt-2" value={summary}

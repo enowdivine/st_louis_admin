@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
-import { updateCourse, getCampuses, getTeam } from "../../app/reducers/app";
+import { updateCourse, getCampuses, getTeam, getProgrammes } from "../../app/reducers/app";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -15,7 +15,8 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [title, setTitle] = useState('')
   const [summary, setSummary] = useState('')
-  const [programType, setProgramType] = useState('')
+  const [programmes, setProgrammes] = useState([])
+  const [programme, setProgramme] = useState([])
   const [duration, setDuration] = useState('')
   const [location, setLocation] = useState('')
   const [fee, setFee] = useState('')
@@ -54,6 +55,26 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
     }
   }
 
+  const handlerGetProgramme = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getProgrammes()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setProgrammes(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handlerGetTeam = async () => {
     try {
       setLoading(true)
@@ -76,6 +97,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
 
   useEffect(() => {
     handlerGetCampuses()
+    handlerGetProgramme()
     handlerGetTeam()
   }, [])
 
@@ -86,7 +108,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
         id: item._id,
         title,
         summary,
-        programType,
+        programType: programme,
         duration,
         location,
         fee,
@@ -146,7 +168,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
   useEffect(() => {
     setTitle(item.title)
     setSummary(item.summary)
-    setProgramType(item.programType)
+    setProgramme(item.programType)
     setDuration(item.duration)
     setLocation(item.location)
     setFee(item.fee)
@@ -173,8 +195,16 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
       <textarea value={summary} onChange={(e) => setSummary(e.target.value)} className="input input-bordered w-full mt-2" >
       </textarea>
 
-      <p style={{ marginTop: 20 }}>Program Type (e.g Bachelor of Arts)</p>
-      <input type="text" value={programType} onChange={(e) => setProgramType(e.target.value)} className="input input-bordered w-full mt-2" />
+      <p style={{ marginTop: 20 }}>Programme</p>
+      <select className="input input-bordered w-full mt-2"
+        onChange={(e) => setProgramme(e.target.value)} value={programme}>
+        <option>Select Programme</option>
+        {programmes?.map((item, index) => {
+          return (
+            <option key={index} value={item?.title}>{item?.title}</option>
+          )
+        })}
+      </select>
 
       <p style={{ marginTop: 20 }}>Course Duration</p>
       <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)} className="input input-bordered w-full mt-2" />
@@ -196,6 +226,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
 
       <p style={{ marginTop: 20 }}>Campuses</p>
       <select className="input input-bordered w-full mt-2"
+        style={{ minHeight: 100 }}
         multiple value={campuses}
         onChange={handleAddCampus}>
         <option>Select Campus</option>
@@ -208,6 +239,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
 
       <p style={{ marginTop: 20 }}>Lecturers</p>
       <select className="input input-bordered w-full mt-2"
+        style={{ minHeight: 100 }}
         multiple value={lecturers}
         onChange={handleAddLecturer}>
         <option>Select Lecturer</option>

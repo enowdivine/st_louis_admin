@@ -134,7 +134,9 @@ function Team() {
                         </div>
                       </td>
                       <td style={{ maxWidth: 500 }}>
-                        <div dangerouslySetInnerHTML={{ __html: item?.summary }} /></td>
+                        <div dangerouslySetInnerHTML={{ __html: item?.summary }} />
+                        {/* <p>{item?.summary}</p> */}
+                      </td>
                       <td>
                         <button
                           className="btn btn-square btn-ghost"
