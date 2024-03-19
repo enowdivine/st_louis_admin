@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
-import { updateCourse, getCampuses, getTeam, getProgrammes } from "../../app/reducers/app";
+import { updateCourse, getCampuses, getTeam, getCategories } from "../../app/reducers/app";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -58,7 +58,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
   const handlerGetProgramme = async () => {
     try {
       setLoading(true)
-      await dispatch(getProgrammes()).then((res) => {
+      await dispatch(getCategories()).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           showNotification({ message: res.payload, status: 0 })
           setLoading(false)

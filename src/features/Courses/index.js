@@ -10,7 +10,7 @@ import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { showNotification } from "../common/headerSlice";
 // import SearchBar from "../../components/Input/SearchBar";
-import { getCourses } from "../../app/reducers/app";
+import { getCourses, getCategories } from "../../app/reducers/app";
 import { FilterFunnction } from "../../components/TableFilter/FilterFunction";
 
 const TopSideButtons = () => {
@@ -45,8 +45,9 @@ function Team() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
   const [courses, setCourses] = useState([])
+  const [programmes, setProgrammes] = useState([])
 
-  const handlerGetTeam = async () => {
+  const handlerGetCourses = async () => {
     try {
       setLoading(true)
       await dispatch(getCourses()).then((res) => {
@@ -65,9 +66,29 @@ function Team() {
       console.error(error)
     }
   }
+  const handlerGetProgrammes = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getCategories()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setProgrammes(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
-    handlerGetTeam()
+    handlerGetCourses()
+    handlerGetProgrammes()
   }, [])
 
   const deleteCurrentTeam = (item) => {
@@ -120,6 +141,7 @@ function Team() {
             <tbody>
               {courses.length > 0 ?
                 courses.map((item, index) => {
+                  const programme = programmes.filter(p => item.programType === p._id)[0]
                   return (
                     <tr key={index}>
                       <td>
@@ -127,7 +149,7 @@ function Team() {
                           <div className="font-bold">{item.title}</div>
                         </div>
                       </td>
-                      <td>{item.programType}</td>
+                      <td>{programme?.title}</td>
                       <td>{item.duration}</td>
                       <td>{item.fee}</td>
                       <td>{item.language}</td>

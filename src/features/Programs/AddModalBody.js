@@ -22,33 +22,33 @@ function AddProgramModalBody({ closeModal }) {
   const [dataObject, setdataObject] = useState(INITIAL_OBJ);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [otherDetails, setOtherDetails] = useState('');
-  // const [campuses, setCampuses] = useState([])
-  // const [campus, setCampus] = useState([])
+  const [campuses, setCampuses] = useState([])
+  const [campus, setCampus] = useState([])
 
 
-  // const handlerGetCampuses = async () => {
-  //   try {
-  //     setLoading(true)
-  //     await dispatch(getCampuses()).then((res) => {
-  //       if (res.meta.requestStatus === "rejected") {
-  //         showNotification({ message: res.payload, status: 0 })
-  //         setLoading(false)
-  //         return
-  //       }
-  //       setCampuses(res.payload)
-  //       setLoading(false)
-  //     }).catch((err) => {
-  //       console.error(err)
-  //       setLoading(false)
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+  const handlerGetCampuses = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getCampuses()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setCampuses(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  // useEffect(() => {
-  //   handlerGetCampuses()
-  // }, [])
+  useEffect(() => {
+    handlerGetCampuses()
+  }, [])
 
   const saveNewData = async () => {
     if (dataObject.title.trim() === "")
@@ -62,7 +62,7 @@ function AddProgramModalBody({ closeModal }) {
       formData.append('title', dataObject.title);
       formData.append('summary', dataObject.summary);
       formData.append('otherDetails', otherDetails);
-      // formData.append('campusID', campus);
+      formData.append('campusID', campus);
       await dispatch(addProgramme(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
@@ -93,10 +93,10 @@ function AddProgramModalBody({ closeModal }) {
     setdataObject({ ...dataObject, [updateType]: value });
   };
 
-  // const handleCampusChange = (event) => {
-  //   const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
-  //   setCampus(selectedValues);
-  // };
+  const handleCampusChange = (event) => {
+    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+    setCampus(selectedValues);
+  };
 
   return (
     <>
@@ -109,18 +109,19 @@ function AddProgramModalBody({ closeModal }) {
         updateFormValue={updateFormValue}
       />
 
-      {/* <p style={{ marginTop: 20 }}>Campus</p>
+      <p style={{ marginTop: 20 }}>Campus</p>
       <select className="input input-bordered w-full mt-2"
         multiple
         onChange={handleCampusChange}
-        value={campus}>
+        value={campus}
+        style={{ minHeight: 100 }}>
         <option>Select Campus</option>
         {campuses?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>
           )
         })}
-      </select> */}
+      </select>
 
       <TextAreaInput
         labelTitle="Programme summary"
