@@ -177,7 +177,7 @@ function AddCourseModalBody({ closeModal }) {
         <option>Select Programme</option>
         {programmes?.map((item, index) => {
           return (
-            <option key={index} value={item?.title}>{item?.title}</option>
+            <option key={index} value={item?._id}>{item?.title}</option>
           )
         })}
       </select>
