@@ -44,6 +44,7 @@ function AddTeamModalBody({ closeModal }) {
         dispatch(showNotification({ message: "New member Added!", status: 1 }));
         setLoading(false)
         closeModal();
+        window.location.reload()
       }).catch((err) => {
         console.error(err)
         setLoading(false)

@@ -41,6 +41,7 @@ function UpdateEventModalBody({ closeModal, extraObject }) {
         dispatch(showNotification({ message: "Event updated!", status: 1 }));
         setLoading(false)
         closeModal();
+        window.location.reload()
       }).catch((err) => {
         console.error(err)
         setLoading(false)
