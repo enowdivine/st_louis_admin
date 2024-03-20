@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
-import { updateCategories, getCampuses, getProgrammes } from "../../app/reducers/app";
+import { updateCategories, getFaculties, getProgrammes } from "../../app/reducers/app";
 
 function UpdateCategoryModalBody({ closeModal, extraObject }) {
   const dispatch = useDispatch();
@@ -11,8 +11,8 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
   const [title, setTitle] = useState("")
   const [programmes, setProgrammes] = useState([])
   const [programme, setProgramme] = useState([])
-  // const [campuses, setCampuses] = useState([])
-  // const [campus, setCampus] = useState("")
+  const [faculties, setFaculties] = useState([])
+  const [faculty, setFaculty] = useState("")
 
   const { item } = extraObject
 
@@ -36,33 +36,33 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
     }
   }
 
-  // const handlerGetCampuses = async () => {
-  //   try {
-  //     setLoading(true)
-  //     await dispatch(getCampuses()).then((res) => {
-  //       if (res.meta.requestStatus === "rejected") {
-  //         showNotification({ message: res.payload, status: 0 })
-  //         setLoading(false)
-  //         return
-  //       }
-  //       setCampuses(res.payload)
-  //       setLoading(false)
-  //     }).catch((err) => {
-  //       console.error(err)
-  //       setLoading(false)
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+  const handlerGetFaculties = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getFaculties()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setFaculties(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const saveNewData = async () => {
-    if (title && programme) {
+    if (title) {
       const data = {
         id: item._id,
         title,
         programmeID: programme,
-        // campusID: campus
+        facultyID: faculty[0]
       }
       await dispatch(updateCategories(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -70,7 +70,7 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
           setLoading(false)
           return
         }
-        dispatch(showNotification({ message: "Category updated!", status: 1 }));
+        dispatch(showNotification({ message: "Department updated!", status: 1 }));
         setLoading(false)
         closeModal();
         window.location.reload()
@@ -86,12 +86,12 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
 
   useEffect(() => {
     setTitle(item.title)
-    // setCampus(item.campusID)
+    setFaculty(item.facultyID)
     setProgramme(item.programmeID)
   }, [item])
 
   useEffect(() => {
-    // handlerGetCampuses()
+    handlerGetFaculties()
     handlerGetProgramme()
   }, [])
 
@@ -100,11 +100,27 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
     setProgramme(selectedValues);
   };
 
+  const handleFacultyChange = (event) => {
+    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+    setFaculty(selectedValues);
+  };
+
 
   return (
     <>
       <p style={{ marginTop: 20 }}>Name</p>
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-bordered w-full mt-2" />
+
+      <p style={{ marginTop: 20 }}>Faculty</p>
+      <select className="input input-bordered w-full mt-2"
+        onChange={handleFacultyChange} value={faculty}>
+        <option>Select Faculty</option>
+        {faculties?.map((item, index) => {
+          return (
+            <option key={index} value={item?._id}>{item?.title}</option>
+          )
+        })}
+      </select>
 
       <p style={{ marginTop: 20 }}>Programme</p>
       <select className="input input-bordered w-full mt-2" style={{ minHeight: 100 }}

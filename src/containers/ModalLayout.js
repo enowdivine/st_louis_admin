@@ -19,6 +19,8 @@ import AddCategoryModalBody from "../features/Categories/AddCategoryModalBody";
 import UpdateCategoryModalBody from "../features/Categories/UpdateCategoryModalBody";
 import AddCourseModalBody from "../features/Courses/AddCourseModalBody";
 import UpdateCourseModalBody from "../features/Courses/UpdateCourseModalBody";
+import AddFacultyModalBody from "../features/Faculties/AddFacultyModalBody";
+import UpdateFacultyModalBody from "../features/Faculties/UpdateFacultyModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -99,6 +101,20 @@ function ModalLayout() {
               ),
               [MODAL_BODY_TYPES.UPDATE_CAMPUS]: (
                 <UpdateCampusModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              // 
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_FACULTY]: (
+                <AddFacultyModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_FACULTY]: (
+                <UpdateFacultyModalBody
                   closeModal={close}
                   extraObject={extraObject}
                 />

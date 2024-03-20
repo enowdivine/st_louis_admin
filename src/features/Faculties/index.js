@@ -10,7 +10,7 @@ import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { showNotification } from "../common/headerSlice";
 // import SearchBar from "../../components/Input/SearchBar";
-import { getCategories } from "../../app/reducers/app";
+import { getFaculties } from "../../app/reducers/app";
 import { FilterFunnction } from "../../components/TableFilter/FilterFunction";
 
 const TopSideButtons = () => {
@@ -19,8 +19,8 @@ const TopSideButtons = () => {
   const openAddNewTeamModal = () => {
     dispatch(
       openModal({
-        title: "Add New Department",
-        bodyType: MODAL_BODY_TYPES.ADD_NEW_CATEGORY,
+        title: "Add New Faculty",
+        bodyType: MODAL_BODY_TYPES.ADD_NEW_FACULTY,
       })
     );
   };
@@ -41,21 +41,21 @@ const TopSideButtons = () => {
   );
 };
 
-function Team() {
+function Faculties() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
-  const [categories, setCategories] = useState([])
+  const [faculties, setFaculties] = useState([])
 
-  const handlerGetTeam = async () => {
+  const handlerGetFaculties = async () => {
     try {
       setLoading(true)
-      await dispatch(getCategories()).then((res) => {
+      await dispatch(getFaculties()).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           showNotification({ message: res.payload, status: 0 })
           setLoading(false)
           return
         }
-        setCategories(res.payload)
+        setFaculties(res.payload)
         setLoading(false)
       }).catch((err) => {
         console.error(err)
@@ -67,7 +67,7 @@ function Team() {
   }
 
   useEffect(() => {
-    handlerGetTeam()
+    handlerGetFaculties()
   }, [])
 
   const deleteCurrentItem = (item) => {
@@ -77,18 +77,18 @@ function Team() {
         bodyType: MODAL_BODY_TYPES.CONFIRMATION,
         extraObject: {
           message: `Are you sure you want to delete ${item.title}?`,
-          type: CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY_DELETE,
+          type: CONFIRMATION_MODAL_CLOSE_TYPES.FACULTY_DELETE,
           item,
         },
       })
     );
   };
 
-  const updateCurrenItem = (item) => {
+  const updateCurrentItem = (item) => {
     dispatch(
       openModal({
         title: `Update ${item.title}`,
-        bodyType: MODAL_BODY_TYPES.UPDATE_CATEGORY,
+        bodyType: MODAL_BODY_TYPES.UPDATE_FACULTY,
         extraObject: {
           item,
         },
@@ -99,7 +99,7 @@ function Team() {
   return (
     <>
       <TitleCard
-        title="Departments"
+        title="faculties"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
@@ -109,23 +109,38 @@ function Team() {
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Details</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {categories.length > 0 ?
-                categories.map((item, index) => {
+              {faculties.length > 0 ?
+                faculties.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
-                        <div>
-                          <div className="font-bold">{item.title}</div>
+                        <div className="flex items-center space-x-3">
+                          {/* <div className="avatar">
+                            <div className="mask mask-circle w-12 h-12">
+                              <img
+                                src={`${process.env.REACT_APP_BASE_URL}/uploads/gallery/${item?.image}`}
+                                alt="Image"
+                              />
+                            </div>
+                          </div> */}
+                          <div>
+                            <div className="font-bold">{item.title}</div>
+                          </div>
                         </div>
+                      </td>
+                      <td style={{ maxWidth: 500 }}>
+                        <div dangerouslySetInnerHTML={{ __html: item?.details }} />
+                        {/* <p>{item?.summary}</p> */}
                       </td>
                       <td>
                         <button
                           className="btn btn-square btn-ghost"
-                          onClick={() => updateCurrenItem(item)}
+                          onClick={() => updateCurrentItem(item)}
                         >
                           <PencilSquareIcon className="w-5" />
                         </button>
@@ -151,4 +166,4 @@ function Team() {
   );
 }
 
-export default Team;
+export default Faculties;

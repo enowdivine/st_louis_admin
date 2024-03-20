@@ -49,15 +49,21 @@ const routes = [
     icon: <HomeModernIcon className={iconClasses} />, // icon component
     name: 'Campuses', // name that appear in Sidebar
   },
+
   {
     path: '/app/programmes', // url
     icon: <BookmarkSquareIcon className={iconClasses} />, // icon component
     name: 'Programmes', // name that appear in Sidebar
   },
   {
-    path: '/app/categories', // url
+    path: '/app/faculties', // url
+    icon: <HomeModernIcon className={iconClasses} />, // icon component
+    name: 'Faculties', // name that appear in Sidebar
+  },
+  {
+    path: '/app/departments', // url
     icon: <QueueListIcon className={iconClasses} />, // icon component
-    name: 'Categories', // name that appear in Sidebar
+    name: 'Departments', // name that appear in Sidebar
   },
   {
     path: '/app/courses', // url

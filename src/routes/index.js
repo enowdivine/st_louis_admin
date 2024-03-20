@@ -13,6 +13,7 @@ const Team = lazy(() => import('../pages/protected/Team'))
 const Programmes = lazy(() => import('../pages/protected/Programs'))
 const Courses = lazy(() => import('../pages/protected/Courses'))
 const Campuses = lazy(() => import('../pages/protected/Campuses'))
+const Faculties = lazy(() => import('../pages/protected/Faculties'))
 const Categories = lazy(() => import('../pages/protected/Categories'))
 
 // const GettingStarted = lazy(() => import('../pages/GettingStarted'))
@@ -43,15 +44,19 @@ const routes = [
     component: Programmes,
   },
   {
-    path: '/courses',
-    component: Courses,
-  },
-  {
     path: '/campuses',
     component: Campuses,
   },
   {
-    path: '/categories',
+    path: '/courses',
+    component: Courses,
+  },
+  {
+    path: '/faculties',
+    component: Faculties,
+  },
+  {
+    path: '/departments',
     component: Categories,
   },
   // {
