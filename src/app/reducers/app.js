@@ -204,6 +204,7 @@ export const updateProgramme = createAsyncThunk(
         try {
             const response = await axios.put(`${base_url}/programmes/update/${data.id}`, data.formData, {
                 headers: {
+                    "Content-Type": "application/json",
                     "Content-Type": "multipart/form-data",
                 },
             });

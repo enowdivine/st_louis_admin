@@ -171,10 +171,10 @@ function AddCourseModalBody({ closeModal }) {
       <textarea value={summary} onChange={(e) => setSummary(e.target.value)} className="input input-bordered w-full mt-2" >
       </textarea>
 
-      <p style={{ marginTop: 20 }}>Programme</p>
+      <p style={{ marginTop: 20 }}>Department</p>
       <select className="input input-bordered w-full mt-2"
         onChange={(e) => setProgramme(e.target.value)} value={programme}>
-        <option>Select Programme</option>
+        <option>Select Department</option>
         {programmes?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>

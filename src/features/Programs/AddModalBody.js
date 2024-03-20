@@ -4,7 +4,7 @@ import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
-import { addProgramme, getCampuses } from "../../app/reducers/app";
+import { addProgramme, getCampuses, getFaculties } from "../../app/reducers/app";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -24,7 +24,8 @@ function AddProgramModalBody({ closeModal }) {
   const [otherDetails, setOtherDetails] = useState('');
   const [campuses, setCampuses] = useState([])
   const [campus, setCampus] = useState([])
-
+  const [faculties, setFaculties] = useState([])
+  const [faculty, setFaculty] = useState([])
 
   const handlerGetCampuses = async () => {
     try {
@@ -45,9 +46,29 @@ function AddProgramModalBody({ closeModal }) {
       console.error(error)
     }
   }
+  const handlerGetFaculties = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getFaculties()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setFaculties(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
     handlerGetCampuses()
+    handlerGetFaculties()
   }, [])
 
   const saveNewData = async () => {
@@ -62,7 +83,8 @@ function AddProgramModalBody({ closeModal }) {
       formData.append('title', dataObject.title);
       formData.append('summary', dataObject.summary);
       formData.append('otherDetails', otherDetails);
-      formData.append('campusID', campus);
+      formData.append('campusID', JSON.stringify(campus));
+      formData.append('faculties', JSON.stringify(faculty));
       await dispatch(addProgramme(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
@@ -98,6 +120,11 @@ function AddProgramModalBody({ closeModal }) {
     setCampus(selectedValues);
   };
 
+  const handleFacultyChange = (event) => {
+    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+    setFaculty(selectedValues);
+  };
+
   return (
     <>
       <InputText
@@ -109,7 +136,21 @@ function AddProgramModalBody({ closeModal }) {
         updateFormValue={updateFormValue}
       />
 
-      <p style={{ marginTop: 20 }}>Campus</p>
+      <p style={{ marginTop: 20 }}>Faculties</p>
+      <select className="input input-bordered w-full mt-2"
+        multiple
+        onChange={handleFacultyChange}
+        value={faculty}
+        style={{ minHeight: 100 }}>
+        <option>Select Faculty</option>
+        {faculties?.map((item, index) => {
+          return (
+            <option key={index} value={item?._id}>{item?.title}</option>
+          )
+        })}
+      </select>
+
+      <p style={{ marginTop: 20 }}>Campuses</p>
       <select className="input input-bordered w-full mt-2"
         multiple
         onChange={handleCampusChange}

@@ -34,6 +34,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
 
   const [campusData, setCampusData] = useState([])
   const [lecturersData, setLecturersData] = useState([])
+  console.log(campuses)
 
   const handlerGetCampuses = async () => {
     try {
@@ -185,7 +186,6 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
     setApplicationProcess(item.applicationProcess)
   }, [item])
 
-
   return (
     <>
       <p style={{ marginTop: 20 }}>Name</p>
@@ -195,10 +195,10 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
       <textarea value={summary} onChange={(e) => setSummary(e.target.value)} className="input input-bordered w-full mt-2" >
       </textarea>
 
-      <p style={{ marginTop: 20 }}>Programme</p>
+      <p style={{ marginTop: 20 }}>Department</p>
       <select className="input input-bordered w-full mt-2"
         onChange={(e) => setProgramme(e.target.value)} value={programme}>
-        <option>Select Programme</option>
+        <option>Select Department</option>
         {programmes?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>

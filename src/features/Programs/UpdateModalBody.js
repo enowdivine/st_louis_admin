@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
-import { updateProgramme, getCampuses } from "../../app/reducers/app";
+import { updateProgramme, getCampuses, getFaculties } from "../../app/reducers/app";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -18,7 +18,9 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
   const [image, setImage] = useState([])
   const [previews, setPreviews] = useState([])
   const [campuses, setCampuses] = useState([])
-  const [campus, setCampus] = useState("")
+  const [campusData, setCampusData] = useState([])
+  const [faculties, setFaculties] = useState([])
+  const [faculty, setFaculty] = useState([])
 
   const { item } = extraObject
 
@@ -31,7 +33,26 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
           setLoading(false)
           return
         }
-        setCampuses(res.payload)
+        setCampusData(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const handlerGetFaculties = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getFaculties()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setFaculties(res.payload)
         setLoading(false)
       }).catch((err) => {
         console.error(err)
@@ -49,7 +70,8 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       formData.append('title', title);
       formData.append('summary', summary);
       formData.append('otherDetails', details);
-      formData.append('campusID', campus);
+      formData.append('campusID', JSON.stringify(campuses));
+      formData.append('faculties', JSON.stringify(faculty));
       const data = { id: item._id, formData }
       await dispatch(updateProgramme(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -66,7 +88,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       })
     }
     else {
-      return setErrorMessage("All field is required!");
+      return setErrorMessage("Title and summary is required!");
     }
   }
 
@@ -104,6 +126,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
   };
 
   useEffect(() => {
+    handlerGetFaculties()
     handlerGetCampuses()
   }, [])
 
@@ -112,30 +135,54 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
     setSummary(item.summary)
     setDetails(item.otherDetails)
     setImage(item.image)
-    setCampus(item.campusID)
+    setCampuses(JSON.parse(item.campusID))
+    setFaculty(JSON.parse(item.faculties))
   }, [item])
 
-  const handleCampusChange = (event) => {
-    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
-    setCampus(selectedValues);
-  };
+  const handleAddCampus = (event) => {
+    const options = event.target.options;
+    const selectedValues = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedValues.push(options[i].value);
+      }
+    }
+    setCampuses(selectedValues);
+  }
 
+  const handleFacultyChange = (event) => {
+    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+    setFaculty(selectedValues);
+  };
 
   return (
     <>
       <p style={{ marginTop: 20 }}>Name</p>
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-bordered w-full mt-2" />
 
-      <p style={{ marginTop: 20 }}>Campus</p>
+      <p style={{ marginTop: 20 }}>Faculties</p>
       <select className="input input-bordered w-full mt-2"
         multiple
-        onChange={handleCampusChange}
-        value={campus}
+        onChange={handleFacultyChange}
+        value={faculty}
         style={{ minHeight: 100 }}>
-        <option>Select Campus</option>
-        {campuses?.map((item, index) => {
+        <option>Select Faculty</option>
+        {faculties?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>
+          )
+        })}
+      </select>
+
+      <p style={{ marginTop: 20 }}>Campuses</p>
+      <select className="input input-bordered w-full mt-2"
+        style={{ minHeight: 100 }}
+        multiple value={campuses}
+        onChange={handleAddCampus}>
+        <option>Select Campus</option>
+        {campusData?.map((item, index) => {
+          return (
+            <option key={index} value={item._id}>{item?.title}</option>
           )
         })}
       </select>
