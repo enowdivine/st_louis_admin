@@ -5,6 +5,10 @@ function TemplatePointers() {
             <p className="py-2 mt-4">✓ <span className="font-semibold">Light/dark</span> mode toggle</p>
             <p className="py-2 ">✓ <span className="font-semibold">Event creation</span> and management</p>
             <p className="py-2">✓ <span className="font-semibold">Team Management </span> table</p>
+            <p className="py-2">✓ <span className="font-semibold">Campus Management </span> table</p>
+            <p className="py-2">✓ <span className="font-semibold">Faculty Management </span> table</p>
+            <p className="py-2">✓ <span className="font-semibold">Department Management </span> table</p>
+            <p className="py-2">✓ <span className="font-semibold">Course Management </span> table</p>
         </>
     )
 }

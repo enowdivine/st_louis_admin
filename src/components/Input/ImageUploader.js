@@ -62,9 +62,8 @@ function ImageUploader({
         <span className="label-text text-base-content">{labelTitle}</span>
       </label>
       <div
-        className={`h-40 input  input-bordered  border-2 border-dashed rounded-lg flex justify-center items-center  ${
-          isDragOver ? "bg-gray-100" : ""
-        }`}
+        className={`h-40 input  input-bordered  border-2 border-dashed rounded-lg flex justify-center items-center  ${isDragOver ? "bg-gray-100" : ""
+          }`}
       >
         {selectedImage ? (
           <img
