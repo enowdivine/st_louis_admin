@@ -76,6 +76,10 @@ function AddProgramModalBody({ closeModal }) {
       return setErrorMessage("title is required!");
     else if (dataObject.summary.trim() === "")
       return setErrorMessage("summary is required!")
+    else if (campus.length === 0)
+      return setErrorMessage("Select at least one campus")
+    else if (faculty.length === 0)
+      return setErrorMessage("Select at least one faculty")
     else {
       setLoading(true)
       const formData = new FormData();

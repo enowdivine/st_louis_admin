@@ -62,6 +62,10 @@ function AddCategoryModalBody({ closeModal }) {
   const saveNewData = async () => {
     if (teamObj.title.trim() === "")
       return setErrorMessage("title is required!")
+    else if (faculty.length === 0)
+      return setErrorMessage("faculty is required!")
+    else if (programme.length === 0)
+      return setErrorMessage("select at least  one program")
     else {
       setLoading(true)
       const data = {
