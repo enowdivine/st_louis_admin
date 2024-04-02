@@ -120,7 +120,7 @@ function Team() {
   return (
     <>
       <TitleCard
-        title="Courses"
+        title="Programmes"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >

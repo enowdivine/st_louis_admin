@@ -182,8 +182,8 @@ function Dashboard() {
         { title: "Team", value: `${members?.length}`, icon: <UserGroupIcon className='w-8 h-8' />, description: "" },
 
         { title: "Campuses", value: `${campuses?.length}`, icon: <HomeModernIcon className='w-8 h-8' />, description: "" },
-        { title: "Programmes", value: `${programmes?.length}`, icon: <BookmarkSquareIcon className='w-8 h-8' />, description: "" },
-        { title: "Course Categories", value: `${categories?.length}`, icon: <QueueListIcon className='w-8 h-8' />, description: "" },
+        { title: "Study Levels", value: `${programmes?.length}`, icon: <BookmarkSquareIcon className='w-8 h-8' />, description: "" },
+        { title: "Faculty Levels", value: `${categories?.length}`, icon: <QueueListIcon className='w-8 h-8' />, description: "" },
         { title: "Courses", value: `${courses?.length}`, icon: <BookOpenIcon className='w-8 h-8' />, description: "" },
     ]
 

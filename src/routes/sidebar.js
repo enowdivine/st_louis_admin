@@ -51,9 +51,9 @@ const routes = [
   },
 
   {
-    path: '/app/programmes', // url
+    path: '/app/study-levels', // url
     icon: <BookmarkSquareIcon className={iconClasses} />, // icon component
-    name: 'Programmes', // name that appear in Sidebar
+    name: 'Study Levels', // name that appear in Sidebar
   },
   {
     path: '/app/faculties', // url
@@ -61,14 +61,14 @@ const routes = [
     name: 'Faculties', // name that appear in Sidebar
   },
   {
-    path: '/app/departments', // url
+    path: '/app/faculty-levels', // url
     icon: <QueueListIcon className={iconClasses} />, // icon component
-    name: 'Departments', // name that appear in Sidebar
+    name: 'Faculty Levels', // name that appear in Sidebar
   },
   {
-    path: '/app/courses', // url
+    path: '/app/programmes', // url
     icon: <BookOpenIcon className={iconClasses} />, // icon component
-    name: 'Courses', // name that appear in Sidebar
+    name: 'Programmes', // name that appear in Sidebar
   },
   // {
   //   path: '', //no url needed as this has submenu

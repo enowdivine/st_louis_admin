@@ -40,7 +40,7 @@ const routes = [
     component: Team,
   },
   {
-    path: '/programmes',
+    path: '/study-levels',
     component: Programmes,
   },
   {
@@ -48,7 +48,7 @@ const routes = [
     component: Campuses,
   },
   {
-    path: '/courses',
+    path: '/programmes',
     component: Courses,
   },
   {
@@ -56,7 +56,7 @@ const routes = [
     component: Faculties,
   },
   {
-    path: '/departments',
+    path: '/faculty-levels',
     component: Categories,
   },
   // {

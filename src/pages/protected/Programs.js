@@ -7,7 +7,7 @@ function InternalPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPageTitle({ title: "Programmes" }));
+    dispatch(setPageTitle({ title: "Study Levels" }));
   }, []);
 
   return <Programs />;
