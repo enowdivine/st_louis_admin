@@ -357,7 +357,7 @@ export const updateFaculty = createAsyncThunk(
     "app/updateFaculty",
     async (data, thunkAPI) => {
         try {
-            const response = await axios.put(`${base_url}/faculties/update/${data.id}`, data, {
+            const response = await axios.put(`${base_url}/faculties/update/${data.id}`, data.formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

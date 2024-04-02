@@ -120,14 +120,14 @@ function Faculties() {
                     <tr key={index}>
                       <td>
                         <div className="flex items-center space-x-3">
-                          {/* <div className="avatar">
+                          <div className="avatar">
                             <div className="mask mask-circle w-12 h-12">
                               <img
                                 src={`${process.env.REACT_APP_BASE_URL}/uploads/gallery/${item?.image}`}
                                 alt="Image"
                               />
                             </div>
-                          </div> */}
+                          </div>
                           <div>
                             <div className="font-bold">{item.title}</div>
                           </div>

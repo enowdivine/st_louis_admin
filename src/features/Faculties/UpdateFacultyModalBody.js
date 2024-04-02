@@ -26,7 +26,7 @@ function UpdateFacultyModalBody({ closeModal, extraObject }) {
       formData.append('title', title);
       formData.append('details', details);
       const data = { id: item._id, formData }
-      await dispatch(updateFaculty(formData)).then((res) => {
+      await dispatch(updateFaculty(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
           setLoading(false)
