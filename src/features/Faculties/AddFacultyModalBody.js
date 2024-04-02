@@ -18,17 +18,18 @@ function AddFacultyModalBody({ closeModal }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [facultyObj, setFacultyObj] = useState(INITIAL_FACULTY_OBJ);
   const [details, setDetails] = useState('')
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const saveNewData = async () => {
     if (facultyObj.title.trim() === "")
       return setErrorMessage("title is required!");
     else {
       setLoading(true)
-      const data = {
-        title: facultyObj.title,
-        details
-      }
-      await dispatch(addFaculty(data)).then((res) => {
+      const formData = new FormData();
+      formData.append('image', selectedFiles[0]);
+      formData.append('title', facultyObj.title);
+      formData.append('details', details);
+      await dispatch(addFaculty(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
           setLoading(false)
@@ -42,6 +43,14 @@ function AddFacultyModalBody({ closeModal }) {
         console.error(err)
         setLoading(false)
       })
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const newSelectedFiles = [...selectedFiles, ...files];
+      setSelectedFiles(newSelectedFiles)
     }
   };
 
@@ -68,6 +77,12 @@ function AddFacultyModalBody({ closeModal }) {
         onChange={setDetails}
         style={{ height: 100 }}
       />
+
+      <p style={{ marginTop: 70 }}>Image</p>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

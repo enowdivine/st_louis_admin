@@ -195,10 +195,10 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
       <textarea value={summary} onChange={(e) => setSummary(e.target.value)} className="input input-bordered w-full mt-2" >
       </textarea>
 
-      <p style={{ marginTop: 20 }}>Department</p>
+      <p style={{ marginTop: 20 }}>Faculty Level</p>
       <select className="input input-bordered w-full mt-2"
         onChange={(e) => setProgramme(e.target.value)} value={programme}>
-        <option>Select Department</option>
+        <option>Select Faculty Level</option>
         {programmes?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>
@@ -209,7 +209,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
       <p style={{ marginTop: 20 }}>Course Duration</p>
       <input type="text" value={duration} onChange={(e) => setDuration(e.target.value)} className="input input-bordered w-full mt-2" />
 
-      <p style={{ marginTop: 20 }}>Study Location (e.g On Site)</p>
+      <p style={{ marginTop: 20 }}>Study Mode (e.g On Site)</p>
       <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="input input-bordered w-full mt-2" />
 
       <p style={{ marginTop: 20 }}>Fee</p>

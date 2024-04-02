@@ -338,7 +338,7 @@ export const addFaculty = createAsyncThunk(
         try {
             const response = await axios.post(`${base_url}/faculties/create`, data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                 },
             });
             return response.data;
@@ -359,7 +359,7 @@ export const updateFaculty = createAsyncThunk(
         try {
             const response = await axios.put(`${base_url}/faculties/update/${data.id}`, data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                 },
             });
             return response.data;
