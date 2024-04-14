@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
 import { updateEvent } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 function UpdateEventModalBody({ closeModal, extraObject }) {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function UpdateEventModalBody({ closeModal, extraObject }) {
   const [location, setLocation] = useState("")
   const [link, setLink] = useState("")
   const [date, setDate] = useState("")
+  const [isFrench, setIsFrench] = useState(false);
 
   const [details, setDetails] = useState("")
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -31,6 +33,7 @@ function UpdateEventModalBody({ closeModal, extraObject }) {
       formData.append('date', date);
       formData.append('location', location);
       formData.append('link', link);
+      formData.append('isFrench', isFrench);
       const data = { id: item._id, formData }
       await dispatch(updateEvent(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -93,6 +96,7 @@ function UpdateEventModalBody({ closeModal, extraObject }) {
     setLink(item.link)
     setDate(item.date)
     setImage(item.image)
+    setIsFrench(item.isFrench)
   }, [item])
 
 
@@ -119,11 +123,16 @@ function UpdateEventModalBody({ closeModal, extraObject }) {
 
       </textarea>
 
+
       <p style={{ marginTop: 20 }}>Image</p>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ul style={{ display: 'flex', flexWrap: 'wrap', marginTop: 20 }}>
         {previews?.map((url, index) => (
@@ -146,8 +155,6 @@ function UpdateEventModalBody({ closeModal, extraObject }) {
           />
         </div>
       </ul>
-
-
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

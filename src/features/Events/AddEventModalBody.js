@@ -5,6 +5,7 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
 import { addEvent } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 const INITIAL_EVENT_OBJ = {
   name: "",
@@ -23,6 +24,7 @@ function AddEventModalBody({ closeModal }) {
   const [eventObj, seteventObj] = useState(INITIAL_EVENT_OBJ);
   const [selectedFiles, setSelectedFiles] = useState([]);
   // const [previews, setPreviews] = useState([])
+  const [isFrench, setIsFrench] = useState(false);
 
   const saveNewEvent = async () => {
     if (eventObj.name.trim() === "")
@@ -47,6 +49,7 @@ function AddEventModalBody({ closeModal }) {
       formData.append('date', eventObj.date);
       formData.append('location', eventObj.location);
       formData.append('link', eventObj.link);
+      formData.append('isFrench', isFrench);
       await dispatch(addEvent(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
@@ -135,6 +138,8 @@ function AddEventModalBody({ closeModal }) {
         updateFormValue={updateFormValue}
         updateType="description"
       />
+
+      <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

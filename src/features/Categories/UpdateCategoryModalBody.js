@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
 import { updateCategories, getFaculties, getProgrammes } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 function UpdateCategoryModalBody({ closeModal, extraObject }) {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
   const [programme, setProgramme] = useState([])
   const [faculties, setFaculties] = useState([])
   const [faculty, setFaculty] = useState("")
+  const [isFrench, setIsFrench] = useState(false);
 
   const { item } = extraObject
 
@@ -62,7 +64,8 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
         id: item._id,
         title,
         programmeID: programme,
-        facultyID: faculty[0]
+        facultyID: faculty[0],
+        isFrench
       }
       await dispatch(updateCategories(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -88,6 +91,7 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
     setTitle(item.title)
     setFaculty(item.facultyID)
     setProgramme(item.programmeID)
+    setIsFrench(item.isFrench)
   }, [item])
 
   useEffect(() => {
@@ -133,6 +137,10 @@ function UpdateCategoryModalBody({ closeModal, extraObject }) {
           )
         })}
       </select>
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       {/* <p style={{ marginTop: 20 }}>Campus</p>
       <select className="input input-bordered w-full mt-2"

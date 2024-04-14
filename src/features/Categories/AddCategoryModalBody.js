@@ -4,6 +4,7 @@ import InputText from "../../components/Input/InputText";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
 import { addCategories, getFaculties, getProgrammes } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 const INITIAL_TEAM_OBJ = {
   title: "",
@@ -18,6 +19,7 @@ function AddCategoryModalBody({ closeModal }) {
   const [programme, setProgramme] = useState([])
   const [faculties, setFaculties] = useState([])
   const [faculty, setFaculty] = useState("")
+  const [isFrench, setIsFrench] = useState(false);
 
   const handlerGetProgramme = async () => {
     try {
@@ -71,7 +73,8 @@ function AddCategoryModalBody({ closeModal }) {
       const data = {
         title: teamObj.title,
         programmeID: programme,
-        facultyID: faculty[0]
+        facultyID: faculty[0],
+        isFrench
       }
       await dispatch(addCategories(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -144,6 +147,10 @@ function AddCategoryModalBody({ closeModal }) {
           )
         })}
       </select>
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       {/* <p style={{ marginTop: 20 }}>Campus</p>
       <select className="input input-bordered w-full mt-2"

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
 import { updateProgramme, getCampuses, getFaculties } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -21,6 +22,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
   const [campusData, setCampusData] = useState([])
   const [faculties, setFaculties] = useState([])
   const [faculty, setFaculty] = useState([])
+  const [isFrench, setIsFrench] = useState(false);
 
   const { item } = extraObject
 
@@ -72,6 +74,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       formData.append('otherDetails', details);
       formData.append('campusID', JSON.stringify(campuses));
       formData.append('faculties', JSON.stringify(faculty));
+      formData.append('isFrench', isFrench);
       const data = { id: item._id, formData }
       await dispatch(updateProgramme(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -138,6 +141,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
     setImage(item.image)
     setCampuses(JSON.parse(item.campusID))
     setFaculty(JSON.parse(item.faculties))
+    setIsFrench(item.isFrench)
   }, [item])
 
   const handleAddCampus = (event) => {
@@ -206,6 +210,10 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ul style={{ display: 'flex', flexWrap: 'wrap', marginTop: 20 }}>
         {previews?.map((url, index) => (

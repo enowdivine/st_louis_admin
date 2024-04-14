@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
 import { updateCampus } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -16,6 +17,7 @@ function UpdateCampusModalBody({ closeModal, extraObject }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [image, setImage] = useState([])
   const [previews, setPreviews] = useState([])
+  const [isFrench, setIsFrench] = useState(false);
 
   const { item } = extraObject
 
@@ -25,6 +27,7 @@ function UpdateCampusModalBody({ closeModal, extraObject }) {
       formData.append('image', selectedFiles[0]);
       formData.append('title', title);
       formData.append('summary', summary);
+      formData.append('isFrench', isFrench);
       const data = { id: item._id, formData }
       await dispatch(updateCampus(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -83,6 +86,7 @@ function UpdateCampusModalBody({ closeModal, extraObject }) {
     setTitle(item.title)
     setSummary(item.summary)
     setImage(item.image)
+    setIsFrench(item.isFrench)
   }, [item])
 
 
@@ -104,6 +108,10 @@ function UpdateCampusModalBody({ closeModal, extraObject }) {
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ul style={{ display: 'flex', flexWrap: 'wrap', marginTop: 20 }}>
         {previews?.map((url, index) => (

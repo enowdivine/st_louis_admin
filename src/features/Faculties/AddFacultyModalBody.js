@@ -4,6 +4,7 @@ import InputText from "../../components/Input/InputText";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
 import { addFaculty } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -19,6 +20,7 @@ function AddFacultyModalBody({ closeModal }) {
   const [facultyObj, setFacultyObj] = useState(INITIAL_FACULTY_OBJ);
   const [details, setDetails] = useState('')
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [isFrench, setIsFrench] = useState(false);
 
   const saveNewData = async () => {
     if (facultyObj.title.trim() === "")
@@ -29,6 +31,7 @@ function AddFacultyModalBody({ closeModal }) {
       formData.append('image', selectedFiles[0]);
       formData.append('title', facultyObj.title);
       formData.append('details', details);
+      formData.append('isFrench', isFrench);
       await dispatch(addFaculty(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
@@ -83,6 +86,10 @@ function AddFacultyModalBody({ closeModal }) {
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

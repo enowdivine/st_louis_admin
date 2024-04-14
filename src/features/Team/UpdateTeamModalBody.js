@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
 import { updateMember } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 function UpdateTeamModalBody({ closeModal, extraObject }) {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [image, setImage] = useState([])
   const [previews, setPreviews] = useState([])
+  const [isFrench, setIsFrench] = useState(false);
+  const [isManagement, setIsManagement] = useState(false);
 
   const { item } = extraObject
 
@@ -24,6 +27,8 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
       formData.append('name', name);
       formData.append('details', details);
       formData.append('profession', profession);
+      formData.append('isFrench', isFrench);
+      formData.append('isManagement', isManagement);
       const data = { id: item._id, formData }
       await dispatch(updateMember(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -83,6 +88,8 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
     setProfession(item.profession)
     setDetails(item.details)
     setImage(item.image)
+    setIsFrench(item.isFrench)
+    setIsManagement(item.isManagement)
   }, [item])
 
 
@@ -105,6 +112,14 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isManagement} setValue={setIsManagement} text1={"MANAGEMENT"} text2={"STAFF"} />
+      </div>
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ul style={{ display: 'flex', flexWrap: 'wrap', marginTop: 20 }}>
         {previews?.map((url, index) => (

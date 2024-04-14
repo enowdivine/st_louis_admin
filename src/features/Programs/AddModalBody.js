@@ -5,6 +5,7 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
 import { addProgramme, getCampuses, getFaculties } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -26,6 +27,7 @@ function AddProgramModalBody({ closeModal }) {
   const [campus, setCampus] = useState([])
   const [faculties, setFaculties] = useState([])
   const [faculty, setFaculty] = useState([])
+  const [isFrench, setIsFrench] = useState(false);
 
   const handlerGetCampuses = async () => {
     try {
@@ -89,6 +91,7 @@ function AddProgramModalBody({ closeModal }) {
       formData.append('otherDetails', otherDetails);
       formData.append('campusID', JSON.stringify(campus));
       formData.append('faculties', JSON.stringify(faculty));
+      formData.append('isFrench', isFrench);
       await dispatch(addProgramme(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
@@ -191,6 +194,10 @@ function AddProgramModalBody({ closeModal }) {
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

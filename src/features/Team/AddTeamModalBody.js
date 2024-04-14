@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import SelectBox from "../../components/Input/SelectBox";
+// import SelectBox from "../../components/Input/SelectBox";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
 import { addMember } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 const INITIAL_TEAM_OBJ = {
   name: "",
@@ -20,6 +21,8 @@ function AddTeamModalBody({ closeModal }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [teamObj, setteamObj] = useState(INITIAL_TEAM_OBJ);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [isFrench, setIsFrench] = useState(false);
+  const [isManagement, setIsManagement] = useState(false);
 
   const saveNewTeam = async () => {
     if (teamObj.name.trim() === "")
@@ -35,6 +38,8 @@ function AddTeamModalBody({ closeModal }) {
       formData.append('name', teamObj.name);
       formData.append('profession', teamObj.profession);
       formData.append('details', teamObj.details);
+      formData.append('isFrench', isFrench);
+      formData.append('isManagement', isManagement);
       await dispatch(addMember(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           setErrorMessage(res.payload)
@@ -100,6 +105,14 @@ function AddTeamModalBody({ closeModal }) {
         type="file"
         accept="image/*"
         onChange={handleFileChange} className="input  input-bordered w-full mt-2" />
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isManagement} setValue={setIsManagement} text1={"MANAGEMENT"} text2={"STAFF"} />
+      </div>
+
+      <div style={{ marginTop: 30 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">

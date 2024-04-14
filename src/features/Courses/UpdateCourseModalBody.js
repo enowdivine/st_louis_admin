@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice"
 import { updateCourse, getCampuses, getTeam, getCategories } from "../../app/reducers/app";
+import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -34,7 +35,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
 
   const [campusData, setCampusData] = useState([])
   const [lecturersData, setLecturersData] = useState([])
-  console.log(campuses)
+  const [isFrench, setIsFrench] = useState(false);
 
   const handlerGetCampuses = async () => {
     try {
@@ -123,7 +124,8 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
         admissionRequirements,
         feeDetails,
         scholarship,
-        applicationProcess
+        applicationProcess,
+        isFrench
       }
       await dispatch(updateCourse(data)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -184,6 +186,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
     setFeeDetails(item.feeDetails)
     setScholarship(item.scholarship)
     setApplicationProcess(item.applicationProcess)
+    setIsFrench(item.isFrench)
   }, [item])
 
   return (
@@ -297,6 +300,10 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
         onChange={setApplicationProcess}
         style={{ height: 100 }}
       />
+
+      <div style={{ marginTop: 70 }}>
+        <SwitchButton value={isFrench} setValue={setIsFrench} text1={"FRENCH"} text2={"ENGLISH"} />
+      </div>
 
       <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>
       <div className="modal-action">
