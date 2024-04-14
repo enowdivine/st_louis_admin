@@ -29,8 +29,6 @@ function AddTeamModalBody({ closeModal }) {
       return setErrorMessage("name is required!");
     else if (teamObj.profession.trim() === "")
       return setErrorMessage("profession is required!");
-    else if (teamObj.details.trim() === "")
-      return setErrorMessage("details is required!");
     else {
       setLoading(true)
       const formData = new FormData();
@@ -89,7 +87,7 @@ function AddTeamModalBody({ closeModal }) {
         updateFormValue={updateFormValue}
       />
 
-      <TextAreaInput
+      {isManagement && <TextAreaInput
         labelTitle="Enter more details about member"
         labelStyle="text-lg"
         type="text"
@@ -98,7 +96,7 @@ function AddTeamModalBody({ closeModal }) {
         placeholder="Type your details here"
         updateFormValue={updateFormValue}
         updateType="details"
-      />
+      />}
 
       <p style={{ marginTop: 20 }}>Image</p>
       <input

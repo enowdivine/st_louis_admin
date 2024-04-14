@@ -101,11 +101,12 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
       <p style={{ marginTop: 20 }}>Position</p>
       <input type="text" value={profession} onChange={(e) => setProfession(e.target.value)} className="input input-bordered w-full mt-2" />
 
-      <p style={{ marginTop: 20 }}>Description</p>
-      <textarea className="textarea textarea-bordered w-full mt-2" value={details}
-        onChange={(e) => setDetails(e.target.value)}>
+      {isManagement && <>
+        <p style={{ marginTop: 20 }}>Description</p>
+        <textarea className="textarea textarea-bordered w-full mt-2" value={details}
+          onChange={(e) => setDetails(e.target.value)}>
 
-      </textarea>
+        </textarea></>}
 
       <p style={{ marginTop: 20 }}>Image</p>
       <input
