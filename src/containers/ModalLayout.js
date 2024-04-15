@@ -5,6 +5,9 @@ import ConfirmationModalBody from "../features/common/components/ConfirmationMod
 import AddEventModalBody from "../features/Events/AddEventModalBody";
 import UpdateEventModalBody from "../features/Events/UpdateEventModalBody";
 
+import AddResearchModalBody from "../features/Research/AddResearchModalBody";
+import UpdateResearchModalBody from "../features/Research/UpdateResearchModalBody";
+
 import AddTeamModalBody from "../features/Team/AddTeamModalBody";
 import UpdateTeamModalBody from "../features/Team/UpdateTeamModalBody";
 
@@ -58,6 +61,19 @@ function ModalLayout() {
               ),
               [MODAL_BODY_TYPES.UPDATE_EVENT]: (
                 <UpdateEventModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_RESEARCH]: (
+                <AddResearchModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_RESEARCH]: (
+                <UpdateResearchModalBody
                   closeModal={close}
                   extraObject={extraObject}
                 />

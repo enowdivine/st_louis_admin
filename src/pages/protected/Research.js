@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../features/common/headerSlice";
-import Courses from "../../features/Courses";
+import Research from "../../features/Research";
 
 function InternalPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPageTitle({ title: "Courses" }));
+    dispatch(setPageTitle({ title: "Research" }));
   }, []);
 
-  return <Courses />;
+  return <Research />;
 }
 
 export default InternalPage;

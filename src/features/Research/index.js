@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import TitleCard from "../../components/Cards/TitleCard";
@@ -9,18 +10,17 @@ import {
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { showNotification } from "../common/headerSlice";
-// import SearchBar from "../../components/Input/SearchBar";
-import { getCourses, getCategories } from "../../app/reducers/app";
+import { getResearch } from "../../app/reducers/app";
 import { FilterFunnction } from "../../components/TableFilter/FilterFunction";
 
 const TopSideButtons = () => {
   const dispatch = useDispatch();
 
-  const openAddNewTeamModal = () => {
+  const openAddNewResearchModal = () => {
     dispatch(
       openModal({
-        title: "Add New Course",
-        bodyType: MODAL_BODY_TYPES.ADD_NEW_COURSE,
+        title: "Add New Research",
+        bodyType: MODAL_BODY_TYPES.ADD_NEW_RESEARCH,
       })
     );
   };
@@ -33,7 +33,7 @@ const TopSideButtons = () => {
 
       <button
         className="btn mx-3 px-6 btn-sm normal-case btn-primary"
-        onClick={() => openAddNewTeamModal()}
+        onClick={() => openAddNewResearchModal()}
       >
         Add New
       </button>
@@ -41,41 +41,21 @@ const TopSideButtons = () => {
   );
 };
 
-function Team() {
+function Research() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
-  const [courses, setCourses] = useState([])
-  const [programmes, setProgrammes] = useState([])
+  const [events, setEvents] = useState([])
 
-  const handlerGetCourses = async () => {
+  const handlerGetEvents = async () => {
     try {
       setLoading(true)
-      await dispatch(getCourses()).then((res) => {
+      await dispatch(getResearch()).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           showNotification({ message: res.payload, status: 0 })
           setLoading(false)
           return
         }
-        setCourses(res.payload)
-        setLoading(false)
-      }).catch((err) => {
-        console.error(err)
-        setLoading(false)
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  const handlerGetProgrammes = async () => {
-    try {
-      setLoading(true)
-      await dispatch(getCategories()).then((res) => {
-        if (res.meta.requestStatus === "rejected") {
-          showNotification({ message: res.payload, status: 0 })
-          setLoading(false)
-          return
-        }
-        setProgrammes(res.payload)
+        setEvents(res.payload)
         setLoading(false)
       }).catch((err) => {
         console.error(err)
@@ -87,29 +67,28 @@ function Team() {
   }
 
   useEffect(() => {
-    handlerGetCourses()
-    handlerGetProgrammes()
+    handlerGetEvents()
   }, [])
 
-  const deleteCurrentTeam = (item) => {
+  const deleteCurrentResearch = (item) => {
     dispatch(
       openModal({
         title: "Confirmation",
         bodyType: MODAL_BODY_TYPES.CONFIRMATION,
         extraObject: {
-          message: `Are you sure you want to delete ${item.title}?`,
-          type: CONFIRMATION_MODAL_CLOSE_TYPES.COURSE_DELETE,
+          message: `Are you sure you want to delete ${item.title}`,
+          type: CONFIRMATION_MODAL_CLOSE_TYPES.RESEARCH_DELETE,
           item,
         },
       })
     );
   };
 
-  const updateCurrenTeam = (item) => {
+  const updateCurrentEvent = (item) => {
     dispatch(
       openModal({
-        title: `Update ${item.title}`,
-        bodyType: MODAL_BODY_TYPES.UPDATE_COURSE,
+        title: "Update Research",
+        bodyType: MODAL_BODY_TYPES.UPDATE_RESEARCH,
         extraObject: {
           item,
         },
@@ -120,7 +99,7 @@ function Team() {
   return (
     <>
       <TitleCard
-        title="Courses"
+        title="Research"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
@@ -130,40 +109,47 @@ function Team() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Program</th>
-                <th>Duration</th>
-                <th>Fee</th>
-                <th>Language</th>
-                <th>Start Time</th>
+                <th>Category </th>
+                <th>Published Date</th>
+                <th>Location</th>
+                <th>Link</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {courses.length > 0 ?
-                courses.map((item, index) => {
-                  const programme = programmes.filter(p => item.programType === p._id)[0]
+              {events.length > 0 ?
+                events.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
-                        <div>
-                          <div className="font-bold">{item.title}</div>
+                        <div className="flex items-center space-x-3">
+                          <div className="avatar">
+                            <div className="mask mask-circle w-12 h-12">
+                              <img
+                                src={`${process.env.REACT_APP_BASE_URL}/uploads/gallery/${item?.image}`}
+                                alt="Image"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="font-bold">{item.title}</div>
+                          </div>
                         </div>
                       </td>
-                      <td>{programme?.title}</td>
-                      <td>{item.duration}</td>
-                      <td>{item.fee}</td>
-                      <td>{item.language}</td>
-                      <td>{item.startMonth}</td>
+                      <td>{item.category}</td>
+                      <td>{moment(item.date).format("D MMM YYYY")}</td>
+                      <td>{item.location}</td>
+                      <td>{item.link}</td>
                       <td>
                         <button
                           className="btn btn-square btn-ghost"
-                          onClick={() => updateCurrenTeam(item)}
+                          onClick={() => updateCurrentEvent(item)}
                         >
                           <PencilSquareIcon className="w-5" />
                         </button>
                         <button
                           className="btn btn-square btn-ghost"
-                          onClick={() => deleteCurrentTeam(item)}
+                          onClick={() => deleteCurrentResearch(item)}
                         >
                           <TrashIcon className="w-5" />
                         </button>
@@ -183,4 +169,4 @@ function Team() {
   );
 }
 
-export default Team;
+export default Research;

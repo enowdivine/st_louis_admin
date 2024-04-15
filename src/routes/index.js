@@ -15,6 +15,7 @@ const Courses = lazy(() => import('../pages/protected/Courses'))
 const Campuses = lazy(() => import('../pages/protected/Campuses'))
 const Faculties = lazy(() => import('../pages/protected/Faculties'))
 const Categories = lazy(() => import('../pages/protected/Categories'))
+const Research = lazy(() => import('../pages/protected/Research'))
 
 // const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 // const DocFeatures = lazy(() => import('../pages/DocFeatures'))
@@ -40,7 +41,7 @@ const routes = [
     component: Team,
   },
   {
-    path: '/study-levels',
+    path: '/programmes',
     component: Programmes,
   },
   {
@@ -48,7 +49,7 @@ const routes = [
     component: Campuses,
   },
   {
-    path: '/programmes',
+    path: '/courses',
     component: Courses,
   },
   {
@@ -59,10 +60,10 @@ const routes = [
     path: '/faculty-levels',
     component: Categories,
   },
-  // {
-  //   path: '/calendar',
-  //   component: Calendar,
-  // },
+  {
+    path: '/research',
+    component: Research,
+  },
   // {
   //   path: '/settings-billing',
   //   component: Bills,
