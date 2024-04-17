@@ -23,6 +23,8 @@ import BookOpenIcon from '@heroicons/react/24/outline/BookOpenIcon'
 // import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
 // import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
 // import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon'
+import MegaphoneIcon from '@heroicons/react/24/outline/MegaphoneIcon'
+import DocumentMagnifyingGlassIcon from '@heroicons/react/24/outline/DocumentMagnifyingGlassIcon'
 
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
@@ -36,7 +38,7 @@ const routes = [
   },
   {
     path: '/app/newsslider', // url
-    icon: <CalendarDaysIcon className={iconClasses} />, // icon component
+    icon: <MegaphoneIcon className={iconClasses} />, // icon component
     name: 'News Slider', // name that appear in Sidebar
   },
   {
@@ -77,7 +79,7 @@ const routes = [
   },
   {
     path: '/app/research', // url
-    icon: <BookOpenIcon className={iconClasses} />, // icon component
+    icon: <DocumentMagnifyingGlassIcon className={iconClasses} />, // icon component
     name: 'Research', // name that appear in Sidebar
   },
   // {
