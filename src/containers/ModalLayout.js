@@ -14,14 +14,14 @@ import UpdatePasswordModal from "../features/user/UpdatePasswordModal";
 import UpdateEmailModal from "../features/user/UpdateEmailModal";
 import UpdateCampusModalBody from "../features/Campuses/UpdateCampusModalBody";
 import AddCampusModalBody from "../features/Campuses/AddCampusModalBody";
-import AddCategoryModalBody from "../features/Categories/AddCategoryModalBody";
-import UpdateCategoryModalBody from "../features/Categories/UpdateCategoryModalBody";
 import AddCourseModalBody from "../features/Courses/AddCourseModalBody";
 import UpdateCourseModalBody from "../features/Courses/UpdateCourseModalBody";
 import AddFacultyModalBody from "../features/Faculties/AddFacultyModalBody";
 import UpdateFacultyModalBody from "../features/Faculties/UpdateFacultyModalBody";
 import AddSliderNewsModalBody from "../features/NewsSlider/AddSliderNewsModalBody";
 import UpdateSliderNewsModalBody from "../features/NewsSlider/UpdateSliderNewsModalBody";
+import AddBuddiesModalBody from "../features/Buddies/AddBuddiesModalBody";
+import UpdateBuddiesModalBody from "../features/Buddies/UpdateBuddiesModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -148,14 +148,14 @@ function ModalLayout() {
               ),
               // 
               // 
-              [MODAL_BODY_TYPES.ADD_NEW_CATEGORY]: (
-                <AddCategoryModalBody
+              [MODAL_BODY_TYPES.ADD_NEW_BUDDY]: (
+                <AddBuddiesModalBody
                   closeModal={close}
                   extraObject={extraObject}
                 />
               ),
-              [MODAL_BODY_TYPES.UPDATE_CATEGORY]: (
-                <UpdateCategoryModalBody
+              [MODAL_BODY_TYPES.UPDATE_BUDDY]: (
+                <UpdateBuddiesModalBody
                   closeModal={close}
                   extraObject={extraObject}
                 />

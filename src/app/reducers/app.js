@@ -623,11 +623,11 @@ export const deleteCourse = createAsyncThunk(
 );
 
 // 
-export const getCategories = createAsyncThunk(
-    "app/getCategories",
+export const getBuddies = createAsyncThunk(
+    "app/getBuddies",
     async (thunkAPI) => {
         try {
-            const response = await axios.get(`${base_url}/categories/`);
+            const response = await axios.get(`${base_url}/buddies/`);
             return response.data;
         } catch (error) {
             const message =
@@ -640,13 +640,13 @@ export const getCategories = createAsyncThunk(
     }
 );
 
-export const addCategories = createAsyncThunk(
-    "app/addCategories",
+export const addBuddies = createAsyncThunk(
+    "app/addBuddies",
     async (data, thunkAPI) => {
         try {
-            const response = await axios.post(`${base_url}/categories/create`, data, {
+            const response = await axios.post(`${base_url}/buddies/create`, data, {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                 },
             });
             return response.data;
@@ -661,13 +661,13 @@ export const addCategories = createAsyncThunk(
     }
 );
 
-export const updateCategories = createAsyncThunk(
-    "app/updateCategories",
+export const updateBuddies = createAsyncThunk(
+    "app/updateBuddies",
     async (data, thunkAPI) => {
         try {
-            const response = await axios.put(`${base_url}/categories/update/${data.id}`, data, {
+            const response = await axios.put(`${base_url}/buddies/update/${data.id}`, data.formData, {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                 },
             });
             return response.data;
@@ -682,11 +682,11 @@ export const updateCategories = createAsyncThunk(
     }
 );
 
-export const deleteCategory = createAsyncThunk(
-    "app/deleteCategory",
+export const deleteBuddy = createAsyncThunk(
+    "app/deleteBuddy",
     async (id, thunkAPI) => {
         try {
-            const response = await axios.delete(`${base_url}/categories/delete/${id}`);
+            const response = await axios.delete(`${base_url}/buddies/delete/${id}`);
             return response.data;
         } catch (error) {
             const message =

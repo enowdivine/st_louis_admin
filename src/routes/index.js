@@ -14,7 +14,7 @@ const Programmes = lazy(() => import('../pages/protected/Programs'))
 const Courses = lazy(() => import('../pages/protected/Courses'))
 const Campuses = lazy(() => import('../pages/protected/Campuses'))
 const Faculties = lazy(() => import('../pages/protected/Faculties'))
-const Categories = lazy(() => import('../pages/protected/Categories'))
+const Buddies = lazy(() => import('../pages/protected/Buddies'))
 const Research = lazy(() => import('../pages/protected/Research'))
 const NewsSlider = lazy(() => import('../pages/protected/NewsSlider'))
 
@@ -46,7 +46,7 @@ const routes = [
     component: Team,
   },
   {
-    path: '/programmes',
+    path: '/levels',
     component: Programmes,
   },
   {
@@ -54,7 +54,7 @@ const routes = [
     component: Campuses,
   },
   {
-    path: '/courses',
+    path: '/programmes',
     component: Courses,
   },
   {
@@ -62,8 +62,8 @@ const routes = [
     component: Faculties,
   },
   {
-    path: '/faculty-levels',
-    component: Categories,
+    path: '/buddies',
+    component: Buddies,
   },
   {
     path: '/research',

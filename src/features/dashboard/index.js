@@ -19,7 +19,7 @@ import { showNotification } from '../common/headerSlice'
 import { useState, useEffect } from 'react'
 import {
     getEvents, getTeam,
-    getCampuses, getProgrammes, getCategories, getCourses
+    getCampuses, getProgrammes, getBuddies, getCourses
 } from '../../app/reducers/app'
 
 function Dashboard() {
@@ -30,7 +30,7 @@ function Dashboard() {
     const [members, setMembers] = useState([])
     const [campuses, setCampuses] = useState([])
     const [programmes, setProgrammes] = useState([])
-    const [categories, setCategories] = useState([])
+    const [buddies, setBuddies] = useState([])
     const [courses, setCourses] = useState([])
 
     const handlerGetEvents = async () => {
@@ -113,16 +113,16 @@ function Dashboard() {
         }
     }
 
-    const handlerGetCategories = async () => {
+    const handlerGetBuddies = async () => {
         try {
             setLoading(true)
-            await dispatch(getCategories()).then((res) => {
+            await dispatch(getBuddies()).then((res) => {
                 if (res.meta.requestStatus === "rejected") {
                     showNotification({ message: res.payload, status: 0 })
                     setLoading(false)
                     return
                 }
-                setCategories(res.payload)
+                setBuddies(res.payload)
                 setLoading(false)
             }).catch((err) => {
                 console.error(err)
@@ -158,7 +158,7 @@ function Dashboard() {
         handlerGetTeam()
         handlerGetCampuses()
         handlerGetProgrammes()
-        handlerGetCategories()
+        handlerGetBuddies()
         handlerGetCourses()
     }, [])
 
@@ -182,8 +182,8 @@ function Dashboard() {
         { title: "Team", value: `${members?.length}`, icon: <UserGroupIcon className='w-8 h-8' />, description: "" },
 
         { title: "Campuses", value: `${campuses?.length}`, icon: <HomeModernIcon className='w-8 h-8' />, description: "" },
-        { title: "Study Levels", value: `${programmes?.length}`, icon: <BookmarkSquareIcon className='w-8 h-8' />, description: "" },
-        { title: "Faculty Levels", value: `${categories?.length}`, icon: <QueueListIcon className='w-8 h-8' />, description: "" },
+        { title: "Programme Levels", value: `${programmes?.length}`, icon: <BookmarkSquareIcon className='w-8 h-8' />, description: "" },
+        { title: "Buddies", value: `${buddies?.length}`, icon: <QueueListIcon className='w-8 h-8' />, description: "" },
         { title: "Programmes", value: `${courses?.length}`, icon: <BookOpenIcon className='w-8 h-8' />, description: "" },
     ]
 

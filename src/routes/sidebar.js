@@ -56,31 +56,32 @@ const routes = [
     icon: <HomeModernIcon className={iconClasses} />, // icon component
     name: 'Campuses', // name that appear in Sidebar
   },
-
-  {
-    path: '/app/programmes', // url
-    icon: <BookmarkSquareIcon className={iconClasses} />, // icon component
-    name: 'Programmes', // name that appear in Sidebar
-  },
   {
     path: '/app/faculties', // url
     icon: <HomeModernIcon className={iconClasses} />, // icon component
     name: 'Faculties', // name that appear in Sidebar
   },
   {
-    path: '/app/faculty-levels', // url
-    icon: <QueueListIcon className={iconClasses} />, // icon component
-    name: 'Faculty Levels', // name that appear in Sidebar
+    path: '/app/levels', // url
+    icon: <BookmarkSquareIcon className={iconClasses} />, // icon component
+    name: 'Programme Levels', // name that appear in Sidebar
   },
+
+
   {
-    path: '/app/courses', // url
+    path: '/app/programmes', // url
     icon: <BookOpenIcon className={iconClasses} />, // icon component
-    name: 'Courses', // name that appear in Sidebar
+    name: 'Programmes', // name that appear in Sidebar
   },
   {
     path: '/app/research', // url
     icon: <DocumentMagnifyingGlassIcon className={iconClasses} />, // icon component
     name: 'Research', // name that appear in Sidebar
+  },
+  {
+    path: '/app/buddies', // url
+    icon: <QueueListIcon className={iconClasses} />, // icon component
+    name: 'Buddies', // name that appear in Sidebar
   },
   // {
   //   path: '', //no url needed as this has submenu

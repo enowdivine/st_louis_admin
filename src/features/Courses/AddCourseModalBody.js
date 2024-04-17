@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ErrorText from "../../components/Typography/ErrorText";
 import { showNotification } from "../common/headerSlice";
-import { addCourses, getCampuses, getTeam, getCategories } from "../../app/reducers/app";
+import { addCourses, getCampuses, getTeam, getFaculties, getProgrammes } from "../../app/reducers/app";
 import SwitchButton from "../../components/SwitchBtn/SwitchBtn";
 
 import ReactQuill from "react-quill";
@@ -16,6 +16,8 @@ function AddCourseModalBody({ closeModal }) {
   const [summary, setSummary] = useState('')
   const [programmes, setProgrammes] = useState([])
   const [programme, setProgramme] = useState('')
+  const [faculties, setFaculties] = useState([])
+  const [faculty, setFaculty] = useState('')
   const [duration, setDuration] = useState('')
   const [location, setLocation] = useState('')
   const [fee, setFee] = useState('')
@@ -55,10 +57,30 @@ function AddCourseModalBody({ closeModal }) {
     }
   }
 
+  const handlerGetFaculties = async () => {
+    try {
+      setLoading(true)
+      await dispatch(getFaculties()).then((res) => {
+        if (res.meta.requestStatus === "rejected") {
+          showNotification({ message: res.payload, status: 0 })
+          setLoading(false)
+          return
+        }
+        setFaculties(res.payload)
+        setLoading(false)
+      }).catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handlerGetProgramme = async () => {
     try {
       setLoading(true)
-      await dispatch(getCategories()).then((res) => {
+      await dispatch(getProgrammes()).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           showNotification({ message: res.payload, status: 0 })
           setLoading(false)
@@ -98,6 +120,7 @@ function AddCourseModalBody({ closeModal }) {
   useEffect(() => {
     handlerGetCampuses()
     handlerGetProgramme()
+    handlerGetFaculties()
     handlerGetTeam()
   }, [])
 
@@ -108,6 +131,7 @@ function AddCourseModalBody({ closeModal }) {
         title,
         summary,
         programType: programme,
+        faculty,
         duration,
         location,
         fee,
@@ -174,10 +198,21 @@ function AddCourseModalBody({ closeModal }) {
       <textarea value={summary} onChange={(e) => setSummary(e.target.value)} className="input input-bordered w-full mt-2" >
       </textarea>
 
-      <p style={{ marginTop: 20 }}>Faculty Level</p>
+      <p style={{ marginTop: 20 }}>Faculty</p>
+      <select className="input input-bordered w-full mt-2"
+        onChange={(e) => setFaculty(e.target.value)} value={faculty}>
+        <option>Select Faculty</option>
+        {faculties?.map((item, index) => {
+          return (
+            <option key={index} value={item?._id}>{item?.title}</option>
+          )
+        })}
+      </select>
+
+      <p style={{ marginTop: 20 }}>Level</p>
       <select className="input input-bordered w-full mt-2"
         onChange={(e) => setProgramme(e.target.value)} value={programme}>
-        <option>Select Faculty Level</option>
+        <option>Select Level</option>
         {programmes?.map((item, index) => {
           return (
             <option key={index} value={item?._id}>{item?.title}</option>

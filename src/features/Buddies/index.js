@@ -10,7 +10,7 @@ import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { showNotification } from "../common/headerSlice";
 // import SearchBar from "../../components/Input/SearchBar";
-import { getCategories } from "../../app/reducers/app";
+import { getBuddies } from "../../app/reducers/app";
 import { FilterFunnction } from "../../components/TableFilter/FilterFunction";
 
 const TopSideButtons = () => {
@@ -19,8 +19,8 @@ const TopSideButtons = () => {
   const openAddNewTeamModal = () => {
     dispatch(
       openModal({
-        title: "Add New Department",
-        bodyType: MODAL_BODY_TYPES.ADD_NEW_CATEGORY,
+        title: "Add Buddy",
+        bodyType: MODAL_BODY_TYPES.ADD_NEW_BUDDY,
       })
     );
   };
@@ -41,7 +41,7 @@ const TopSideButtons = () => {
   );
 };
 
-function Team() {
+function Buddies() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
   const [categories, setCategories] = useState([])
@@ -49,7 +49,7 @@ function Team() {
   const handlerGetTeam = async () => {
     try {
       setLoading(true)
-      await dispatch(getCategories()).then((res) => {
+      await dispatch(getBuddies()).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           showNotification({ message: res.payload, status: 0 })
           setLoading(false)
@@ -76,8 +76,8 @@ function Team() {
         title: "Confirmation",
         bodyType: MODAL_BODY_TYPES.CONFIRMATION,
         extraObject: {
-          message: `Are you sure you want to delete ${item.title}?`,
-          type: CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY_DELETE,
+          message: `Are you sure you want to delete ${item.name}?`,
+          type: CONFIRMATION_MODAL_CLOSE_TYPES.BUDDY_DELETE,
           item,
         },
       })
@@ -87,8 +87,8 @@ function Team() {
   const updateCurrenItem = (item) => {
     dispatch(
       openModal({
-        title: `Update ${item.title}`,
-        bodyType: MODAL_BODY_TYPES.UPDATE_CATEGORY,
+        title: `Update ${item.name}`,
+        bodyType: MODAL_BODY_TYPES.UPDATE_BUDDY,
         extraObject: {
           item,
         },
@@ -99,7 +99,7 @@ function Team() {
   return (
     <>
       <TitleCard
-        title="Faculty Levels"
+        title="Buddies"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
@@ -109,6 +109,10 @@ function Team() {
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Role</th>
+                <th>Position</th>
+                <th>Phone</th>
+                <th>Campus</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -118,10 +122,24 @@ function Team() {
                   return (
                     <tr key={index}>
                       <td>
-                        <div>
-                          <div className="font-bold">{item.title}</div>
+                        <div className="flex items-center space-x-3">
+                          <div className="avatar">
+                            <div className="mask mask-circle w-12 h-12">
+                              <img
+                                src={`${process.env.REACT_APP_BASE_URL}/uploads/gallery/${item?.image}`}
+                                alt="Image"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="font-bold">{item.name}</div>
+                          </div>
                         </div>
                       </td>
+                      <td>{item.role}</td>
+                      <td>{item.position}</td>
+                      <td>{item.phone}</td>
+                      <td>{item.campus}</td>
                       <td>
                         <button
                           className="btn btn-square btn-ghost"
@@ -151,4 +169,4 @@ function Team() {
   );
 }
 
-export default Team;
+export default Buddies;

@@ -6,7 +6,7 @@ import {
 } from "../../../utils/globalConstantUtil";
 import { showNotification } from "../headerSlice";
 import {
-  deleteEvent, deleteMember, deleteProgramme, deleteCampus, deleteCategory, deleteCourse,
+  deleteEvent, deleteMember, deleteProgramme, deleteCampus, deleteBuddy, deleteCourse,
   deleteFaculty, deleteResearch, deleteSliderNews
 } from "../../../app/reducers/app";
 
@@ -81,9 +81,9 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
         console.error(err)
         setLoading(false)
       })
-    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY_DELETE) {
+    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.BUDDY_DELETE) {
       setLoading(true)
-      dispatch(deleteCategory(item._id)).then((res) => {
+      dispatch(deleteBuddy(item._id)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           dispatch(showNotification({ message: res.payload, status: 0 }));
           setLoading(false)

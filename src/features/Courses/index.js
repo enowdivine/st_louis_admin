@@ -10,7 +10,7 @@ import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { showNotification } from "../common/headerSlice";
 // import SearchBar from "../../components/Input/SearchBar";
-import { getCourses, getCategories } from "../../app/reducers/app";
+import { getCourses, getProgrammes } from "../../app/reducers/app";
 import { FilterFunnction } from "../../components/TableFilter/FilterFunction";
 
 const TopSideButtons = () => {
@@ -69,7 +69,7 @@ function Team() {
   const handlerGetProgrammes = async () => {
     try {
       setLoading(true)
-      await dispatch(getCategories()).then((res) => {
+      await dispatch(getProgrammes()).then((res) => {
         if (res.meta.requestStatus === "rejected") {
           showNotification({ message: res.payload, status: 0 })
           setLoading(false)
@@ -120,7 +120,7 @@ function Team() {
   return (
     <>
       <TitleCard
-        title="Courses"
+        title="Programmes"
         topMargin="mt-2"
         TopSideButtons={<TopSideButtons />}
       >
