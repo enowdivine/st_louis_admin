@@ -4,16 +4,12 @@ import { closeModal } from "../features/common/modalSlice";
 import ConfirmationModalBody from "../features/common/components/ConfirmationModalBody";
 import AddEventModalBody from "../features/Events/AddEventModalBody";
 import UpdateEventModalBody from "../features/Events/UpdateEventModalBody";
-
 import AddResearchModalBody from "../features/Research/AddResearchModalBody";
 import UpdateResearchModalBody from "../features/Research/UpdateResearchModalBody";
-
 import AddTeamModalBody from "../features/Team/AddTeamModalBody";
 import UpdateTeamModalBody from "../features/Team/UpdateTeamModalBody";
-
 import AddProgramModalBody from "../features/Programs/AddModalBody";
 import UpdateProgramModalBody from "../features/Programs/UpdateModalBody";
-
 import UpdatePasswordModal from "../features/user/UpdatePasswordModal";
 import UpdateEmailModal from "../features/user/UpdateEmailModal";
 import UpdateCampusModalBody from "../features/Campuses/UpdateCampusModalBody";
@@ -24,6 +20,8 @@ import AddCourseModalBody from "../features/Courses/AddCourseModalBody";
 import UpdateCourseModalBody from "../features/Courses/UpdateCourseModalBody";
 import AddFacultyModalBody from "../features/Faculties/AddFacultyModalBody";
 import UpdateFacultyModalBody from "../features/Faculties/UpdateFacultyModalBody";
+import AddSliderNewsModalBody from "../features/NewsSlider/AddSliderNewsModalBody";
+import UpdateSliderNewsModalBody from "../features/NewsSlider/UpdateSliderNewsModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -79,6 +77,19 @@ function ModalLayout() {
                 />
               ),
               // 
+              // 
+              [MODAL_BODY_TYPES.ADD_NEW_SLIDERNEWS]: (
+                <AddSliderNewsModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.UPDATE_SLIDERNEWS]: (
+                <UpdateSliderNewsModalBody
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
               // 
               [MODAL_BODY_TYPES.ADD_NEW_TEAM]: (
                 <AddTeamModalBody

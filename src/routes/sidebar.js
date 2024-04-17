@@ -18,7 +18,7 @@ import BookOpenIcon from '@heroicons/react/24/outline/BookOpenIcon'
 // import Cog6ToothIcon from '@heroicons/react/24/outline/Cog6ToothIcon'
 // import BoltIcon from '@heroicons/react/24/outline/BoltIcon'
 // import ChartBarIcon from '@heroicons/react/24/outline/ChartBarIcon'
-import CurrencyDollarIcon from '@heroicons/react/24/outline/CurrencyDollarIcon'
+// import CurrencyDollarIcon from '@heroicons/react/24/outline/CurrencyDollarIcon'
 // import InboxArrowDownIcon from '@heroicons/react/24/outline/InboxArrowDownIcon'
 // import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
 // import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
@@ -33,6 +33,11 @@ const routes = [
     path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
     name: 'Dashboard',
+  },
+  {
+    path: '/app/newsslider', // url
+    icon: <CalendarDaysIcon className={iconClasses} />, // icon component
+    name: 'News Slider', // name that appear in Sidebar
   },
   {
     path: '/app/events', // url

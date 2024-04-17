@@ -6,6 +6,83 @@ const base_url = `${process.env.REACT_APP_BASE_URL}/api/${process.env.REACT_APP_
 const initialState = {};
 
 // 
+export const getSLiderNews = createAsyncThunk(
+    "app/getEvents",
+    async (thunkAPI) => {
+        try {
+            const response = await axios.get(`${base_url}/slider-news/`);
+            return response.data;
+        } catch (error) {
+            const message =
+                (error.message && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+export const addSliderNews = createAsyncThunk(
+    "app/addEvent",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.post(`${base_url}/slider-news/create`, data, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            const message =
+                (error.message && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+export const updateSliderNews = createAsyncThunk(
+    "app/updateEvent",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.put(`${base_url}/slider-news/update/${data.id}`, data, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            const message =
+                (error.message && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+export const deleteSliderNews = createAsyncThunk(
+    "app/deleteEvent",
+    async (id, thunkAPI) => {
+        try {
+            const response = await axios.delete(`${base_url}/slider-news/delete/${id}`);
+            return response.data;
+        } catch (error) {
+            const message =
+                (error.message && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+// 
 export const getEvents = createAsyncThunk(
     "app/getEvents",
     async (thunkAPI) => {
