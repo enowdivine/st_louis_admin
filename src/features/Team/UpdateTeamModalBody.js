@@ -12,6 +12,7 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
   const [name, setName] = useState("")
   const [profession, setProfession] = useState("")
   const [details, setDetails] = useState("")
+  const [link, setLink] = useState("")
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [image, setImage] = useState([])
   const [previews, setPreviews] = useState([])
@@ -27,6 +28,7 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
       formData.append('name', name);
       formData.append('details', details);
       formData.append('profession', profession);
+      formData.append('link', link);
       formData.append('isFrench', isFrench);
       formData.append('isManagement', isManagement);
       const data = { id: item._id, formData }
@@ -88,6 +90,7 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
     setProfession(item.profession)
     setDetails(item.details)
     setImage(item.image)
+    setLink(item.link)
     setIsFrench(item.isFrench)
     setIsManagement(item.isManagement)
   }, [item])
@@ -100,6 +103,9 @@ function UpdateTeamModalBody({ closeModal, extraObject }) {
 
       <p style={{ marginTop: 20 }}>Position</p>
       <input type="text" value={profession} onChange={(e) => setProfession(e.target.value)} className="input input-bordered w-full mt-2" />
+
+      <p style={{ marginTop: 20 }}>Profile Link</p>
+      <input type="text" value={link} onChange={(e) => setLink(e.target.value)} className="input input-bordered w-full mt-2" />
 
       {isManagement && <>
         <p style={{ marginTop: 20 }}>Description</p>

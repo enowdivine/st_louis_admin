@@ -13,6 +13,7 @@ const INITIAL_TEAM_OBJ = {
   image: "",
   profession: "",
   details: "",
+  link: ""
 };
 
 function AddTeamModalBody({ closeModal }) {
@@ -36,6 +37,7 @@ function AddTeamModalBody({ closeModal }) {
       formData.append('name', teamObj.name);
       formData.append('profession', teamObj.profession);
       formData.append('details', teamObj.details);
+      formData.append('link', teamObj.link);
       formData.append('isFrench', isFrench);
       formData.append('isManagement', isManagement);
       await dispatch(addMember(formData)).then((res) => {
@@ -84,6 +86,15 @@ function AddTeamModalBody({ closeModal }) {
         updateType="profession"
         containerStyle="mt-4"
         labelTitle="Position"
+        updateFormValue={updateFormValue}
+      />
+
+      <InputText
+        type="text"
+        defaultValue={teamObj.link}
+        updateType="link"
+        containerStyle="mt-4"
+        labelTitle="Profile Lnk"
         updateFormValue={updateFormValue}
       />
 
