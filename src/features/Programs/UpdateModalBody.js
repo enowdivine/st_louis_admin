@@ -21,7 +21,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
   const [campuses, setCampuses] = useState([])
   const [campusData, setCampusData] = useState([])
   const [faculties, setFaculties] = useState([])
-  const [faculty, setFaculty] = useState([])
+  const [faculty, setFaculty] = useState("")
   const [isFrench, setIsFrench] = useState(false);
 
   const { item } = extraObject
@@ -73,7 +73,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       formData.append('summary', summary);
       formData.append('otherDetails', details);
       formData.append('campusID', JSON.stringify(campuses));
-      formData.append('faculties', JSON.stringify(faculty));
+      formData.append('faculties', faculty);
       formData.append('isFrench', isFrench);
       const data = { id: item._id, formData }
       await dispatch(updateProgramme(data)).then((res) => {
@@ -140,7 +140,7 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
     setDetails(item.otherDetails)
     setImage(item.image)
     setCampuses(JSON.parse(item.campusID))
-    setFaculty(JSON.parse(item.faculties))
+    setFaculty(item.faculties)
     setIsFrench(item.isFrench)
   }, [item])
 
@@ -165,12 +165,10 @@ function UpdateProgramModalBody({ closeModal, extraObject }) {
       <p style={{ marginTop: 20 }}>Name</p>
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-bordered w-full mt-2" />
 
-      <p style={{ marginTop: 20 }}>Faculties</p>
+      <p style={{ marginTop: 20 }}>Faculty</p>
       <select className="input input-bordered w-full mt-2"
-        multiple
-        onChange={handleFacultyChange}
-        value={faculty}
-        style={{ minHeight: 100 }}>
+        onChange={(e) => setFaculty(e.target.value)}
+        value={faculty}>
         <option>Select Faculty</option>
         {faculties?.map((item, index) => {
           return (

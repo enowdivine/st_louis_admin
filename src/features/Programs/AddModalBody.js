@@ -26,7 +26,7 @@ function AddProgramModalBody({ closeModal }) {
   const [campuses, setCampuses] = useState([])
   const [campus, setCampus] = useState([])
   const [faculties, setFaculties] = useState([])
-  const [faculty, setFaculty] = useState([])
+  const [faculty, setFaculty] = useState("")
   const [isFrench, setIsFrench] = useState(false);
 
   const handlerGetCampuses = async () => {
@@ -90,7 +90,7 @@ function AddProgramModalBody({ closeModal }) {
       formData.append('summary', dataObject.summary);
       formData.append('otherDetails', otherDetails);
       formData.append('campusID', JSON.stringify(campus));
-      formData.append('faculties', JSON.stringify(faculty));
+      formData.append('faculties', faculty);
       formData.append('isFrench', isFrench);
       await dispatch(addProgramme(formData)).then((res) => {
         if (res.meta.requestStatus === "rejected") {
@@ -127,11 +127,6 @@ function AddProgramModalBody({ closeModal }) {
     setCampus(selectedValues);
   };
 
-  const handleFacultyChange = (event) => {
-    const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
-    setFaculty(selectedValues);
-  };
-
   return (
     <>
       <InputText
@@ -143,12 +138,10 @@ function AddProgramModalBody({ closeModal }) {
         updateFormValue={updateFormValue}
       />
 
-      <p style={{ marginTop: 20 }}>Faculties</p>
+      <p style={{ marginTop: 20 }}>Faculty</p>
       <select className="input input-bordered w-full mt-2"
-        multiple
-        onChange={handleFacultyChange}
-        value={faculty}
-        style={{ minHeight: 100 }}>
+        onChange={(e) => setFaculty(e.target.value)}
+        value={faculty}>
         <option>Select Faculty</option>
         {faculties?.map((item, index) => {
           return (

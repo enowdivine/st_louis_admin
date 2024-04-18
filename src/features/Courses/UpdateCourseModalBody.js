@@ -17,7 +17,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
   const [title, setTitle] = useState('')
   const [summary, setSummary] = useState('')
   const [programmes, setProgrammes] = useState([])
-  const [programme, setProgramme] = useState('')
+  const [programme, setProgramme] = useState([])
   const [faculties, setFaculties] = useState([])
   const [faculty, setFaculty] = useState('')
   const [duration, setDuration] = useState('')
@@ -133,7 +133,7 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
         id: item._id,
         title,
         summary,
-        programType: programme,
+        programType: JSON.stringify(programme),
         faculty,
         duration,
         location,
@@ -192,10 +192,21 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
     setLecturers(selectedValues);
   }
 
+  const handleAddLevels = (event) => {
+    const options = event.target.options;
+    const selectedValues = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedValues.push(options[i].value);
+      }
+    }
+    setProgramme(selectedValues);
+  }
+
   useEffect(() => {
     setTitle(item.title)
     setSummary(item.summary)
-    setProgramme(item.programType)
+    setProgramme(JSON.parse(item.programType))
     setFaculty(item.faculty)
     setDuration(item.duration)
     setLocation(item.location)
@@ -236,7 +247,9 @@ function UpdateCourseModalBody({ closeModal, extraObject }) {
 
       <p style={{ marginTop: 20 }}>Level</p>
       <select className="input input-bordered w-full mt-2"
-        onChange={(e) => setProgramme(e.target.value)} value={programme}>
+        style={{ minHeight: 100 }}
+        multiple
+        onChange={handleAddLevels} value={programme}>
         <option>Select Level</option>
         {programmes?.map((item, index) => {
           return (

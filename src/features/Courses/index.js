@@ -130,7 +130,7 @@ function Team() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Program</th>
+                {/* <th>Program</th> */}
                 <th>Duration</th>
                 <th>Fee</th>
                 <th>Language</th>
@@ -141,7 +141,7 @@ function Team() {
             <tbody>
               {courses.length > 0 ?
                 courses.map((item, index) => {
-                  const programme = programmes.filter(p => item.programType === p._id)[0]
+                  // const programme = programmes.filter(p => item.programType === p._id)[0]
                   return (
                     <tr key={index}>
                       <td>
@@ -149,7 +149,7 @@ function Team() {
                           <div className="font-bold">{item.title}</div>
                         </div>
                       </td>
-                      <td>{programme?.title}</td>
+                      {/* <td>{programme?.title}</td> */}
                       <td>{item.duration}</td>
                       <td>{item.fee}</td>
                       <td>{item.language}</td>
